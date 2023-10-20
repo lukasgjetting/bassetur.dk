@@ -17,15 +17,18 @@ const IntroSection = () => {
             const maxScroll = height - window.innerHeight;
             const scrollPercent = Math.min(1, currentScroll / maxScroll);
 
-            const offsetX = scrollPercent * (planeRef.current!.parentElement!.clientWidth - planeRef.current!.clientWidth)
-            const offsetY = Math.sin(-scrollPercent * Math.PI) * planeRef.current!.parentElement!.clientHeight * 0.4;
+            const offsetX = scrollPercent * (planeRef.current!.parentElement!.clientWidth - planeRef.current!.clientWidth);
+            const offsetY = Math.sin(-scrollPercent * Math.PI) * (planeRef.current!.parentElement!.clientHeight * 0.75 - (planeRef.current!.clientHeight * 0.35));
+
+            console.log('wrapper aspect ratio', planeRef.current!.parentElement!.clientWidth / planeRef.current!.parentElement!.clientHeight)
 
             planeRef.current!.style.transform = `
                 translateX(${offsetX}px)
                 translateY(${offsetY}px)
-                rotate(calc(${scrollPercent} * 360deg)
+                rotate(${(scrollPercent * 360 * 2.2) - 45}deg)
             `;
-            document.body.style.setProperty('--intro-scroll', `${(scrollPercent * 10) + 1}px`);
+
+            document.body.style.setProperty('--intro-scroll', `${(scrollPercent * 10) + 0.5}px`);
 
             if (scrollPercent >= 1) {
                 window.removeEventListener('scroll', onScroll);
@@ -42,28 +45,31 @@ const IntroSection = () => {
     }, [])
 
     return (
-        <section ref={wrapperRef} className='h-[300vh]'>
+        <section ref={wrapperRef} className='h-[2000vh]'>
           <div
             className={classNames(
-              'sticky top-0 h-screen',
+              'sticky top-0 h-screen flex',
               fuzzyBubbles.className,
             )}
           >
-            <Image 
-              src="/basserne.jpg"
-              alt=""
-              width={3088}
-              height={2320}
-              className='h-screen object-cover object-left-top'
-            />
-            <div className='h-screen w-[40vw] bg-white absolute right-0 top-0 text-center'>
-              <div className='text-4xl'>
+            <div className="flex-1">
+              <Image 
+                src="/basserne.jpg"
+                alt=""
+                width={3088}
+                height={2320}
+                className='h-screen object-cover object-left-top'
+              />
+            </div>
+            <div className='h-screen w-[40vw] bg-white text-center flex flex-col justify-center'>
+              <div className='text-6xl font-bold leading-normal text-[#3a6f34]'>
                 Store Basse
                 <br />
                 &
                 <br />
                 Lille Basse
               </div>
+              <div className="h-8" />
               <div className='flex justify-center items-center gap-2'>
                 på tur til
                 <Image
@@ -74,23 +80,25 @@ const IntroSection = () => {
                   className='w-32'
                 />
               </div>
+              <div className="h-16" />
               <div className='w-4/5 mx-auto'>
                 <div className='relative'>
-                    <svg viewBox='0,0 10,3' className='mx-4 block'>
+                    <svg viewBox='0,0 10,3' className='mx-[5%] block'>
                         <path
                             d="M0,3 C3,0 7,0 10,3"
                             fill='none'
-                            stroke='black'
-                            strokeWidth={0.1}
+                            stroke='#bbb'
+                            strokeWidth={0.06}
                             style={{
-                                strokeDasharray: '0,var(--intro-scroll),0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4'
+                                strokeDasharray: '0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4',
+                                strokeLinecap: 'round',
                             }}
                             strokeDasharray="0.4,0.4"
                         />
                         <path
                             d="M0,3 C3,0 7,0 10,3"
                             fill='none'
-                            stroke='red'
+                            stroke='#cbd29e'
                             strokeWidth={0.1}
                             style={{
                                 strokeDasharray: 'var(--intro-scroll),1000'
@@ -111,6 +119,16 @@ const IntroSection = () => {
                   <span>🇩🇰</span>
                   <span>🇺🇸</span>
                 </div>
+              </div>
+              <div className="flex flex-col items-center gap-2">
+                <span className="text-lg">Rul ned for at starte turen</span>
+                <Image
+                src="/chevrons-down-thin.svg"
+                alt=""
+                height={32}
+                width={32}
+                className="w-6 h-6 animate-bounce"
+                />
               </div>
             </div>
           </div>
