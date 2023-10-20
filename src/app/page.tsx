@@ -1,9 +1,9 @@
-import IntroSection from '@/components/IntroSection';
+import ScrollToEnterSection from '@/components/ScrollToEnterSection';
 
 export default function Home() {
   return (
     <main className="">
-      <IntroSection />
+      <ScrollToEnterSection />
       heehee
       <br/>
       heehee

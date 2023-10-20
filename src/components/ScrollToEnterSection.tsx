@@ -5,7 +5,7 @@ import classNames from "classnames";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 
-const IntroSection = () => {
+const ScrollToEnterSection = () => {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const planeRef = useRef<HTMLImageElement>(null);
 
@@ -61,8 +61,8 @@ const IntroSection = () => {
                 className='h-screen object-cover object-left-top'
               />
             </div>
-            <div className='h-screen w-[40vw] bg-white text-center flex flex-col justify-center'>
-              <div className='text-6xl font-bold leading-normal text-[#3a6f34]'>
+            <div className='h-screen w-[40vw] bg-white text-center text-[#2B4B2D] flex flex-col justify-center'>
+              <div className='text-4xl lg:text-5xl xl:text-6xl font-bold leading-normal lg:leading-normal xl:leading-normal'>
                 Store Basse
                 <br />
                 &
@@ -80,14 +80,14 @@ const IntroSection = () => {
                   className='w-32'
                 />
               </div>
-              <div className="h-16" />
+              <div className="h-8 xl:h-16" />
               <div className='w-4/5 mx-auto'>
                 <div className='relative'>
                     <svg viewBox='0,0 10,3' className='mx-[5%] block'>
                         <path
                             d="M0,3 C3,0 7,0 10,3"
                             fill='none'
-                            stroke='#bbb'
+                            stroke='#cbd29e'
                             strokeWidth={0.06}
                             style={{
                                 strokeDasharray: '0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4',
@@ -98,7 +98,7 @@ const IntroSection = () => {
                         <path
                             d="M0,3 C3,0 7,0 10,3"
                             fill='none'
-                            stroke='#cbd29e'
+                            stroke='#2B4B2D'
                             strokeWidth={0.1}
                             style={{
                                 strokeDasharray: 'var(--intro-scroll),1000'
@@ -136,4 +136,4 @@ const IntroSection = () => {
     );
 };
 
-export default IntroSection;
+export default ScrollToEnterSection;
