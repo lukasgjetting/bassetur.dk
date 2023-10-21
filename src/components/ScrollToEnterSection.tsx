@@ -20,8 +20,6 @@ const ScrollToEnterSection = () => {
             const offsetX = scrollPercent * (planeRef.current!.parentElement!.clientWidth - planeRef.current!.clientWidth);
             const offsetY = Math.sin(-scrollPercent * Math.PI) * (planeRef.current!.parentElement!.clientHeight * 0.75 - (planeRef.current!.clientHeight * 0.35));
 
-            console.log('wrapper aspect ratio', planeRef.current!.parentElement!.clientWidth / planeRef.current!.parentElement!.clientHeight)
-
             planeRef.current!.style.transform = `
                 translateX(${offsetX}px)
                 translateY(${offsetY}px)
@@ -54,7 +52,7 @@ const ScrollToEnterSection = () => {
           >
             <div className="flex-1">
               <Image 
-                src="/basserne.jpg"
+                src="/trips/california/basserne.jpg"
                 alt=""
                 width={3088}
                 height={2320}
@@ -108,7 +106,7 @@ const ScrollToEnterSection = () => {
                     </svg>
                     <Image
                         ref={planeRef}
-                        src="/plane.png"
+                        src="/icons/plane.png"
                         width={331}
                         height={227}
                         alt=""
@@ -123,7 +121,7 @@ const ScrollToEnterSection = () => {
               <div className="flex flex-col items-center gap-2">
                 <span className="text-lg">Rul ned for at starte turen</span>
                 <Image
-                src="/chevrons-down-thin.svg"
+                src="/icons/chevrons-down-thin.svg"
                 alt=""
                 height={32}
                 width={32}
