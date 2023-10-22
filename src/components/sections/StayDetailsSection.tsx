@@ -1,9 +1,9 @@
 "use client";
 
-import { Stay, Trip } from "@/utils/types";
+import { Trip } from "@/utils/types";
 import React, { ReactNode } from "react";
 import SectionHeading from "../SectionHeading";
-import { DateTime } from "luxon";
+import { DateTime, Settings } from "luxon";
 import classNames from "classnames";
 import { fuzzyBubbles } from "@/utils/fonts";
 import Image from "next/image";
@@ -11,9 +11,9 @@ import getPetTypeIconUrl from "@/utils/getPetTypeIconUrl";
 import getPetGenderIconUrl from "@/utils/getPetGenderIconUrl";
 import getStayDateKey from "@/utils/getStayDateKey";
 import getStayKey from "@/utils/getStayKey";
-import Lightbox from "../../utils/useLightbox";
-import { useRouter, useSearchParams } from "next/navigation";
 import useLightbox from "../../utils/useLightbox";
+
+Settings.defaultLocale = "da";
 
 type StayDetailsSectionProps = {
   trip: Trip;

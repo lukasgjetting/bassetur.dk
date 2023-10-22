@@ -3,7 +3,7 @@
 import getCurrentStay from "@/utils/getCurrentStay";
 import { Trip } from "@/utils/types";
 import classNames from "classnames";
-import { DateTime } from "luxon";
+import { DateTime, Settings } from "luxon";
 import Image from "next/image";
 import React, { ReactNode, useState } from "react";
 import tinycolor from "tinycolor2";
@@ -16,6 +16,8 @@ import getStayTransportIconUrl from "@/utils/getStayTransportIconUrl";
 type KeyInfoSectionProps = {
   trip: Trip;
 };
+
+Settings.defaultLocale = "da";
 
 const SummarySection: React.FC<KeyInfoSectionProps> = ({ trip }) => {
   const start = DateTime.fromISO(trip.startDate).startOf("week");
