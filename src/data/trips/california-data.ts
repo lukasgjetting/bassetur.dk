@@ -8,7 +8,8 @@ export const CaliforniaData: Trip = {
     {
       id: "sebastopol",
       location: "Sebastopol",
-      endDate: "2023-10-15",
+      transport: null,
+      endDate: "2023-10-16",
       imageSourceUrl: "/california/stays/sebastopol.jpg",
       color: "#F0C78D",
       funFacts: ["Ginger og Merlin er mor og far til Bear og Tiger Lily"],
@@ -76,7 +77,8 @@ export const CaliforniaData: Trip = {
     {
       id: "oakland",
       location: "Oakland",
-      endDate: "2023-10-20",
+      transport: "bus",
+      endDate: "2023-10-21",
       imageSourceUrl: "/california/stays/oakland.jpg",
       color: "#E5B284",
       funFacts: ["Mika blev fundet på gaden"],
@@ -96,6 +98,7 @@ export const CaliforniaData: Trip = {
     {
       id: "san-francisco-nob",
       location: "San Francisco",
+      transport: "train",
       endDate: "2023-10-26",
       imageSourceUrl: "/california/stays/san-francisco-nob.jpg",
       color: "#F0C6B4",
@@ -107,7 +110,8 @@ export const CaliforniaData: Trip = {
     {
       id: "unknown-1",
       location: "",
-      endDate: "2023-11-01",
+      transport: null,
+      endDate: "2023-11-02",
       imageSourceUrl: "/california/stays/san-francisco-nob.jpg",
       color: "#E3ABAB",
       funFacts: [],
@@ -117,6 +121,7 @@ export const CaliforniaData: Trip = {
     {
       id: "sunnyvale",
       location: "Sunnyvale",
+      transport: null,
       endDate: "2023-11-12",
       imageSourceUrl: "/california/stays/san-francisco-nob.jpg",
       color: "#CCADDB",
@@ -137,6 +142,7 @@ export const CaliforniaData: Trip = {
     {
       id: "unkown-2",
       location: "",
+      transport: null,
       endDate: "2023-11-18",
       imageSourceUrl: "/california/stays/san-francisco-nob.jpg",
       color: "#E2D0F0",
@@ -147,6 +153,7 @@ export const CaliforniaData: Trip = {
     {
       id: "san-francisco-casey",
       location: "San Francisco",
+      transport: null,
       endDate: "2023-11-25",
       imageSourceUrl: "/california/stays/san-francisco-nob.jpg",
       color: "#B9DAF1",
@@ -185,6 +192,7 @@ export const CaliforniaData: Trip = {
     {
       id: "palo-alto",
       location: "Palo Alto",
+      transport: null,
       endDate: "2023-12-05",
       imageSourceUrl: "/california/stays/san-francisco-nob.jpg",
       color: "#A0C7E3",
@@ -214,6 +222,7 @@ export const CaliforniaData: Trip = {
     {
       id: "unkown-3",
       location: "",
+      transport: null,
       endDate: "2023-12-12",
       imageSourceUrl: "/california/stays/san-francisco-nob.jpg",
       color: "#9ACEA5",
@@ -224,6 +233,7 @@ export const CaliforniaData: Trip = {
     {
       id: "new-york",
       location: "New York",
+      transport: null,
       endDate: "2023-12-20",
       imageSourceUrl: "/california/stays/san-francisco-nob.jpg",
       color: "#C8E9B3",

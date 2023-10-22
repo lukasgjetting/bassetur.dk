@@ -116,7 +116,7 @@ const ScrollToEnterSection = () => {
               </svg>
               <Image
                 ref={planeRef}
-                src="/icons/plane.png"
+                src="/icons/basse-plane.png"
                 width={331}
                 height={227}
                 alt=""

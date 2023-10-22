@@ -2,6 +2,7 @@ export type Stay = {
   id: string;
   endDate: `${number}-${number}-${number}`;
   location: string;
+  transport: "car" | "bus" | "train" | "plane" | null;
   imageSourceUrl: string;
   color: string;
   pets: Array<{

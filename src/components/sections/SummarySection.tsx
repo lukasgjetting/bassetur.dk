@@ -10,6 +10,8 @@ import tinycolor from "tinycolor2";
 import SectionHeading from "../SectionHeading";
 import getStayKey from "@/utils/getStayKey";
 import getStayDateKey from "@/utils/getStayDateKey";
+import { fuzzyBubbles } from "@/utils/fonts";
+import getStayTransportIconUrl from "@/utils/getStayTransportIconUrl";
 
 type KeyInfoSectionProps = {
   trip: Trip;
@@ -54,7 +56,7 @@ const SummarySection: React.FC<KeyInfoSectionProps> = ({ trip }) => {
               </div>
             ))}
           </div>
-          <div className="flex-1">
+          <div className="flex-1 relative">
             {weekStartDates.reduce<ReactNode[]>((arr, weekStartDate, index) => {
               const isLastWeekOfMonth = weekStartDate
                 .plus({ month: 1 })
@@ -93,6 +95,22 @@ const SummarySection: React.FC<KeyInfoSectionProps> = ({ trip }) => {
                       )
                         .darken(50)
                         .toHexString();
+
+                      let transportIcon: string | null = null;
+
+                      if (
+                        d.hasSame(DateTime.fromISO(trip.startDate), "day") ||
+                        d.hasSame(DateTime.fromISO(trip.endDate), "day")
+                      ) {
+                        transportIcon = getStayTransportIconUrl("plane");
+                      } else if (
+                        tomorrowStay != null &&
+                        tomorrowStay !== currentStay
+                      ) {
+                        transportIcon = getStayTransportIconUrl(
+                          tomorrowStay.transport,
+                        );
+                      }
 
                       return (
                         <div key={d.toISO()} className="p-1 flex-1">
@@ -138,34 +156,30 @@ const SummarySection: React.FC<KeyInfoSectionProps> = ({ trip }) => {
                                 />
                               ))}
                             </div>
-                            {(d.hasSame(
-                              DateTime.fromISO(trip.startDate),
-                              "day",
-                            ) ||
-                              d.hasSame(
-                                DateTime.fromISO(trip.endDate),
-                                "day",
-                              )) && (
+                            {transportIcon != null && (
                               <div className="absolute top-1 bottom-0 left-1 pointer-events-none">
                                 <Image
-                                  src="/icons/plane.png"
-                                  alt="Plane"
+                                  src={transportIcon}
+                                  alt=""
                                   width={331}
                                   height={227}
                                   className="w-10"
                                 />
                               </div>
                             )}
-                            <div className="relative z-10 p-1 flex justify-between pointer-events-none">
-                              <div>
-                                {d.hasSame(DateTime.now(), "day") && (
-                                  <div className="h-4 w-4 rounded-full bg-white shadow" />
-                                )}
-                              </div>
-                              <div style={{ color: textColor }}>
-                                {d.toFormat("dd")}
-                              </div>
+                            <div
+                              className="relative z-10 p-1 text-right pointer-events-none"
+                              style={{ color: textColor }}
+                            >
+                              {d.toFormat("dd")}
                             </div>
+                            {d.hasSame(DateTime.now(), "day") && (
+                              <div className="relative z-10 p-1 flex justify-end pointer-events-none">
+                                <div className="text-xs bg-white rounded-full px-2">
+                                  I dag
+                                </div>
+                              </div>
+                            )}
                           </div>
                         </div>
                       );
@@ -205,6 +219,22 @@ const SummarySection: React.FC<KeyInfoSectionProps> = ({ trip }) => {
                             {day}
                           </div>
                         ))}
+                      </div>,
+                    ]
+                  : []),
+                ...(isLastWeekOfMonth
+                  ? [
+                      <div
+                        key={`month-${weekStartDate.toISODate()}`}
+                        className="absolute -left-12 w-20 text-right"
+                      >
+                        <div
+                          className={classNames(
+                            "relative -rotate-90 top-10 font-extralight tracking-widest",
+                          )}
+                        >
+                          {weekStartDate.plus({ weeks: 1 }).toFormat("MMMM")}
+                        </div>
                       </div>,
                     ]
                   : []),
