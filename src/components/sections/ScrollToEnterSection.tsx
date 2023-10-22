@@ -80,7 +80,7 @@ const ScrollToEnterSection = () => {
           <div className="flex justify-center items-center gap-2">
             på tur til
             <Image
-              src="/california.png"
+              src="/trips/california.png"
               alt="California"
               width={686}
               height={194}
