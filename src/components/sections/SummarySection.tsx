@@ -21,13 +21,13 @@ const SummarySection: React.FC<KeyInfoSectionProps> = ({ trip }) => {
 
     return (
         <div id="trip-summary" className="bg-[#FFF5E5]">
-            <div className="p-8 max-w-screen-lg mx-auto">
+            <div className="p-8 max-w-screen-lg mx-auto relative">
                 <SectionHeading color="#AF8B75">Indholdsfortegnelse</SectionHeading>
                 <div className="h-8" />
                 <div className="flex">
-                    <div className="pr-16">
+                    <div className="pr-16 sticky top-4 self-start">
                         {trip.stays.map((s) => (
-                            <div key={s.id} className="flex items-center gap-2 mb-4">
+                            <div key={s.id} className="flex items-center gap-4 mb-4">
                                 <div className="block w-6 h-6 border-2 border-white rounded-full" style={{ backgroundColor: s.color }} />
                                 <div className="text-2xl font-extralight leading-none">
                                     {s.location}
@@ -39,7 +39,7 @@ const SummarySection: React.FC<KeyInfoSectionProps> = ({ trip }) => {
                         {weekStartDates.reduce<ReactNode[]>((arr, weekStartDate, index) => {
                             const isLastWeekOfMonth = weekStartDate.plus({ month: 1 }).startOf('month').hasSame(weekStartDate, 'week');
 
-                            const getDateCell = (isPrev: boolean) => (
+                            const getWeekRow = (isPrev: boolean) => (
                                 <div key={`${weekStartDate.toISO()}${isPrev ? '-prev' : ''}`} className="flex">
                                     {weekStartDate.until(weekStartDate.endOf('week')).splitBy({ day: 1 }).map((interval) => {
                                         const d = interval.start;
@@ -51,7 +51,7 @@ const SummarySection: React.FC<KeyInfoSectionProps> = ({ trip }) => {
                                         const currentStay = getCurrentStay(trip.stays, d);
                                         const tomorrowStay = getCurrentStay(trip.stays, d.plus({ days: 1 }))
 
-                                        let backgroundColor: string;
+                                        let backgroundColor: string | null;
 
                                         const isBeforeStart = d.diff(DateTime.fromISO(trip.startDate)).milliseconds < 0;
                                         const isAfterEnd = d.diff(DateTime.fromISO(trip.endDate)).milliseconds > 0;
@@ -61,10 +61,10 @@ const SummarySection: React.FC<KeyInfoSectionProps> = ({ trip }) => {
                                         } else if (currentStay != null) {
                                             backgroundColor = currentStay!.color
                                         } else {
-                                            backgroundColor = 'white';
+                                            backgroundColor = null;
                                         }
 
-                                        const borderColor = tinycolor(backgroundColor).darken(10).toHexString();
+                                        const textColor = tinycolor(tomorrowStay?.color ?? backgroundColor ?? '#000').darken(50).toHexString();
 
                                         return (
                                             <div
@@ -74,9 +74,9 @@ const SummarySection: React.FC<KeyInfoSectionProps> = ({ trip }) => {
                                                 <div
                                                     className={classNames(
                                                         "relative font-light leading-none h-12 rounded",
-                                                        !d.endOf('week').hasSame(d, 'month') !== isPrev && 'text-gray-300',
+                                                        !d.endOf('week').hasSame(d, 'month') !== isPrev && 'opacity-30 pointer-events-none',
+                                                        backgroundColor != null && 'bg-white bg-opacity-50',
                                                     )}
-                                                    style={{ backgroundColor }}
                                                 >
                                                     <div className="absolute inset-0 flex">
                                                         {[
@@ -87,11 +87,11 @@ const SummarySection: React.FC<KeyInfoSectionProps> = ({ trip }) => {
                                                                 key={index.toString()}
                                                                 href="/"
                                                                 className={classNames(
-                                                                    "flex-1 hover:scale-110 transition-transform rounded py-1 border-t-2 flex flex-col items-stretch justify-between w-full",
+                                                                    "flex-1 hover:scale-105 hover:-translate-y-1 transition-transform rounded py-1 border-t-2 flex flex-col items-stretch justify-between w-full",
                                                                 )}
                                                                 style={{
-                                                                    backgroundColor: color,
-                                                                    borderTopColor: borderColor,
+                                                                    backgroundColor: color ?? 'white',
+                                                                    borderTopColor: tinycolor(color ?? 'white').darken(10).toHexString(),
                                                                 }}
                                                             />
                                                         ))}
@@ -113,10 +113,10 @@ const SummarySection: React.FC<KeyInfoSectionProps> = ({ trip }) => {
                                                     <div className="relative z-10 p-1 flex justify-between pointer-events-none">
                                                         <div>
                                                             {d.hasSame(DateTime.now(), 'day') && (
-                                                                <div className="h-4 w-4 rounded-full bg-[#4d80ee]" />
+                                                                <div className="h-4 w-4 rounded-full bg-white shadow" />
                                                             )}
                                                         </div>
-                                                        <div>{d.toFormat('dd')}</div>
+                                                        <div style={{ color: textColor }}>{d.toFormat('dd')}</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -129,7 +129,7 @@ const SummarySection: React.FC<KeyInfoSectionProps> = ({ trip }) => {
                                 ...arr,
                                 ...(index !== 0 && isLastWeekOfMonth ? [(
                                     <React.Fragment key={`${weekStartDate.toISO()}-prev`}>
-                                        {getDateCell(true)}
+                                        {getWeekRow(true)}
                                         <div className="h-8" />
                                     </React.Fragment>    
                                 )] : []),
@@ -142,7 +142,7 @@ const SummarySection: React.FC<KeyInfoSectionProps> = ({ trip }) => {
                                         ))}
                                     </div>
                                 )] : []),
-                                getDateCell(false),
+                                getWeekRow(false),
                             ];
                         }, [])}
                     </div>

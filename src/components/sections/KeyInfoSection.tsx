@@ -38,26 +38,28 @@ const KeyInfoSection: React.FC<KeyInfoSectionProps> = ({ trip }) => {
     ]
 
     return (
-        <div className="bg-[#CBD29E] p-8 flex items-center justify-around">
-            {stats.map((stat) => (
-                <div key={stat.id} className="flex items-center gap-2">
-                    <Image
-                        src={stat.icon}
-                        alt=""
-                        height={32}
-                        width={32}
-                        className="block w-6 h-6"
-                    />
-                    <div
-                        className={classNames(
-                            'text-xl leading-none text-[#2B4B2D] font-bold pt-1.5',
-                            fuzzyBubbles.className
-                        )}
-                    >
-                        {stat.label}
+        <div className="bg-[#CBD29E]">
+            <div className="max-w-screen-lg mx-auto relative p-8 flex items-center justify-between">
+                {stats.map((stat) => (
+                    <div key={stat.id} className="flex items-center gap-2">
+                        <Image
+                            src={stat.icon}
+                            alt=""
+                            height={32}
+                            width={32}
+                            className="block w-6 h-6"
+                        />
+                        <div
+                            className={classNames(
+                                'text-xl leading-none text-[#2B4B2D] font-bold pt-1.5',
+                                fuzzyBubbles.className
+                            )}
+                        >
+                            {stat.label}
+                        </div>
                     </div>
-                </div>
-            ))}
+                ))}
+            </div>
         </div>
     );
 };
