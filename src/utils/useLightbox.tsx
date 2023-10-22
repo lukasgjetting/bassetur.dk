@@ -1,7 +1,7 @@
 "use client";
 
 import Lightbox from "@/components/Lightbox";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 const useLightbox = () => {
   const [data, setData] = useState<{
@@ -9,6 +9,10 @@ const useLightbox = () => {
     images: string[];
     imageElement: HTMLImageElement | null;
   }>();
+
+  const onClose = useCallback(() => {
+    setData(undefined);
+  }, []);
 
   return {
     openImage: (
@@ -27,6 +31,7 @@ const useLightbox = () => {
         images={data?.images ?? null}
         shownImage={data?.shownImage ?? null}
         imageElement={data?.imageElement ?? null}
+        onClose={onClose}
       />
     ),
   };
