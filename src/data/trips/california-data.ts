@@ -98,7 +98,7 @@ export const CaliforniaData: Trip = {
         
  	{
             id: 'unknown-1',
-            location: '?',
+            location: '',
             endDate: '2023-11-01',
             imageSourceUrl: '/california/stays/san-francisco-nob.jpg',
             color: '#E3ABAB',
@@ -128,7 +128,7 @@ export const CaliforniaData: Trip = {
         },
       {
             id: 'unkown-2',
-            location: '?',
+            location: '',
             endDate: '2023-11-18',
             imageSourceUrl: '/california/stays/san-francisco-nob.jpg',
             color: '#E2D0F0',
@@ -205,7 +205,7 @@ export const CaliforniaData: Trip = {
         },
       {
             id: 'unkown-3',
-            location: '?',
+            location: '',
             endDate: '2023-12-12',
             imageSourceUrl: '/california/stays/san-francisco-nob.jpg',
             color: '#9ACEA5',

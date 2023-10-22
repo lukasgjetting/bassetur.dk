@@ -35,12 +35,15 @@ const SummarySection: React.FC<KeyInfoSectionProps> = ({ trip }) => {
                             <div key={s.id} className="flex items-center gap-4 mb-4">
                                 <div className="block w-6 h-6 border-2 border-white rounded-full" style={{ backgroundColor: s.color }} />
                                 <a
-                                    className="text-2xl font-extralight leading-none p-2 -m-2 bg-[#AF8B75] bg-opacity-0 hover:bg-opacity-10 rounded-lg transition"
+                                    className={classNames(
+                                        "text-2xl font-extralight leading-none p-2 -m-2 bg-[#AF8B75] bg-opacity-0 hover:bg-opacity-10 rounded-lg transition",
+                                        s.location === '' && 'italic text-[#0009]',
+                                    )}
                                     href={`#${getStayKey(s)}`}
                                     onMouseOver={() => setHoveredStay(s.id)}
                                     onMouseOut={() => setHoveredStay(undefined)}
                                 >
-                                    {s.location}
+                                    {s.location || 'Ukendt'}
                                 </a>
                             </div>
                         ))}
