@@ -20,10 +20,15 @@ const StayDetailsSection: React.FC<StayDetailsSectionProps> = ({
     stay,
 }) => {
     const endDate = DateTime.fromISO(stay.endDate);
-    const days = startDate.until(endDate).splitBy({ day: 1 }).map((i) => i.start!);
+    const days = startDate.until(endDate.plus({ days: 1 })).splitBy({ day: 1 }).map((i) => i.start!);
+    console.log(days.map((d) => d.toISODate()!))
+    const hasContent = Object.keys(stay.contentByDate).length > 0;
 
     return (
         <div className="bg-white" id={getStayKey(stay)}>
+            {!hasContent && days.map((d) => (
+                <div key={getStayDateKey(stay, d)} id={getStayDateKey(stay, d)} />
+            ))}
             <div className="h-8" style={{ backgroundColor: stay.color }} />
             <div className="p-8 max-w-screen-lg mx-auto">
                 <div className="flex gap-2">
@@ -105,21 +110,17 @@ const StayDetailsSection: React.FC<StayDetailsSectionProps> = ({
                     </div>
                 </div>
                 <div className="h-8" />
-                {Object.keys(stay.contentByDate).length > 0 && (
+                {hasContent && (
                     <>
                         <h3 className={classNames("text-3xl text-[#1F2F20]", fuzzyBubbles.className)}>Tidslinje</h3>
-                        <div className="h-4" />
                         <div className="flex flex-col">
-                            {days.map((d) => {
+                            {days.map((d, dayIndex) => {
                                 const key = getStayDateKey(stay, d);
                                 const content = stay.contentByDate[d.toISODate()!] ?? [];
 
                                 if (content.length === 0) {
                                     return (
-                                        <div
-                                            key={key}
-                                            id={key}
-                                        />
+                                        <div key={key} id={key} />
                                     );
                                 }
 
@@ -127,7 +128,7 @@ const StayDetailsSection: React.FC<StayDetailsSectionProps> = ({
                                     <div
                                         key={key}
                                         id={key}
-                                        className="flex"
+                                        className="flex pt-4"
                                     >
                                         <div
                                             className={classNames(
@@ -137,12 +138,13 @@ const StayDetailsSection: React.FC<StayDetailsSectionProps> = ({
                                         >
                                             {d.toLocaleString({ day: 'numeric', month: 'long' })}
                                         </div>
-                                        <div className="pt-1 px-4 flex flex-col items-center">
+                                        <div className="relative pt-1 px-4 flex flex-col items-center">
                                             <div
                                                 className="w-4 h-4 rounded-full bg-white border-4"
                                                 style={{ borderColor: stay.color }}
                                             />
                                             <div className="flex-1 w-1" style={{ backgroundColor: stay.color }} />
+                                            <div className="w-1 h-6 absolute top-full" style={{ backgroundColor: stay.color }} />
                                         </div>
                                         <div className="flex-1 flex flex-col pt-8">
                                             <div className="flex flex-wrap gap-4">
