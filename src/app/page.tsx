@@ -1,22 +1,22 @@
-import ScrollToEnterSection from '@/components/ScrollToEnterSection';
+import ScrollToEnterSection from "@/components/ScrollToEnterSection";
 
 export default function Home() {
   return (
     <main className="">
       heehee
-      <br/>
+      <br />
       heehee
-      <br/>
+      <br />
       heehee
-      <br/>
+      <br />
       heehee
-      <br/>
+      <br />
       heehee
-      <br/>
+      <br />
       heehee
-      <br/>
+      <br />
       heehee
-      <br/>
+      <br />
       heehee
     </main>
   );
