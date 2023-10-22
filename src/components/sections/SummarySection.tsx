@@ -34,8 +34,9 @@ const SummarySection: React.FC<KeyInfoSectionProps> = ({ trip }) => {
   return (
     <div id="trip-summary" className="bg-[#FFF5E5]">
       <div className="p-8 max-w-screen-lg mx-auto relative">
-        <SectionHeading color="#AF8B75">Indholdsfortegnelse</SectionHeading>
         <div className="h-8" />
+        <SectionHeading color="#AF8B75">Indholdsfortegnelse</SectionHeading>
+        <div className="h-12" />
         <div className="flex">
           <div className="pr-16 sticky top-4 self-start">
             {trip.stays.map((s) => (
