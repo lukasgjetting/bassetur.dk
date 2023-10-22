@@ -11,17 +11,7 @@ export default function California() {
       {/*<ScrollToEnterSection />*/}
       <KeyInfoSection trip={CaliforniaData} />
       <SummarySection trip={CaliforniaData} />
-      {CaliforniaData.stays.map((stay, index) => (
-        <StayDetailsSection
-          key={stay.id}
-          stay={stay}
-          startDate={
-            index === 0
-              ? DateTime.fromISO(CaliforniaData.startDate)
-              : DateTime.fromISO(CaliforniaData.stays[index - 1].endDate)
-          }
-        />
-      ))}
+      <StayDetailsSection trip={CaliforniaData} />
     </main>
   );
 }

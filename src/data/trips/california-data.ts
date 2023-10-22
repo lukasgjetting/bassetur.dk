@@ -59,7 +59,19 @@ export const CaliforniaData: Trip = {
           imageSourceUrl: "/california/pets/tiger-lily.webp",
         },
       ],
-      contentByDate: {},
+      contentByDate: {
+        "2023-10-11": [
+          { type: "image", value: "/trips/california/sebastopol.png?v=1" },
+          { type: "image", value: "/trips/california/sebastopol.png?v=2" },
+          { type: "text", value: "heeg" },
+          { type: "image", value: "/trips/california/sebastopol.png?v=3" },
+          { type: "image", value: "/trips/california/sebastopol.png?v=4" },
+          { type: "image", value: "/trips/california/sebastopol.png?v=5" },
+          { type: "image", value: "/trips/california/sebastopol.png?v=6" },
+          { type: "text", value: "heeg" },
+          { type: "image", value: "/trips/california/sebastopol.png?v=7" },
+        ],
+      },
     },
     {
       id: "oakland",

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description: "Store Basse og Lille Basse på tur",
 };
 
-Settings.defaultLocale = "da-DK";
+Settings.defaultLocale = "da";
 
 export default function RootLayout({
   children,
