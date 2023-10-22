@@ -61,7 +61,7 @@ const ScrollToEnterSection = () => {
       >
         <div className="flex-1">
           <Image
-            src="/trips/california/basserne.jpg"
+            src="/images/basserne.jpg"
             alt=""
             width={3088}
             height={2320}
@@ -80,7 +80,7 @@ const ScrollToEnterSection = () => {
           <div className="flex justify-center items-center gap-2">
             på tur til
             <Image
-              src="/trips/california.png"
+              src="/images/california.png"
               alt="California"
               width={686}
               height={194}

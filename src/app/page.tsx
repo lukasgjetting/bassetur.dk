@@ -14,7 +14,7 @@ export default function Home() {
       >
         <div className="flex-1">
           <Image
-            src="/trips/california/basserne.jpg"
+            src="/images/basserne.jpg"
             alt=""
             width={3088}
             height={2320}
