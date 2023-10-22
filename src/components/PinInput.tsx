@@ -12,6 +12,9 @@ const PinInput = () => {
     useRef<HTMLInputElement>(null),
   );
 
+  const href =
+    pin.length === pinLength ? `/trips/${pin.toLowerCase()}` : undefined;
+
   return (
     <div className="flex flex-col">
       <div className="flex justify-center gap-2">
@@ -19,6 +22,7 @@ const PinInput = () => {
           <input
             ref={inputRefs[index]}
             key={index}
+            autoFocus={index === 0}
             placeholder="x"
             className="text-center text-6xl leading-none w-16 h-24 border rounded-xl text-transparent"
             style={{
@@ -32,7 +36,9 @@ const PinInput = () => {
                 return;
               }
 
-              if (key === "ArrowLeft") {
+              if (key === "Enter" && href != null) {
+                window.location.href = href;
+              } else if (key === "ArrowLeft") {
                 inputRefs[index - 1]?.current?.focus();
               } else if (key === "ArrowRight") {
                 inputRefs[index + 1]?.current?.focus();
@@ -64,13 +70,11 @@ const PinInput = () => {
       <a
         className={classNames(
           "block text-center self-stretch mx-8 rounded-full text-xl px-2 py-8 transition",
-          pin.length === pinLength
+          href != null
             ? "cursor-pointer bg-[#CBD29E] hover:bg-[#cbd48f]"
             : "cursor-not-allowed bg-gray-100",
         )}
-        href={
-          pin.length === pinLength ? `/trips/${pin.toLowerCase()}` : undefined
-        }
+        href={href}
       >
         Kom i gang
       </a>
