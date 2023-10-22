@@ -27,7 +27,7 @@ const KeyInfoSection: React.FC<KeyInfoSectionProps> = ({ trip }) => {
         },
         {
             id: 'stays',
-            icon: '/icons/flag.png',
+            icon: '/icons/buildings.png',
             label: `${numberOfStays} ${numberOfStays === 1 ? 'sted' : 'steder'} besøgt`
         },
         {

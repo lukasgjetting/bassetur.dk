@@ -10,10 +10,14 @@ export type Stay = {
         name: string;
         race: string;
         age: string;
+        gender: 'male' | 'female';
         imageSourceUrl: string;
     }>;
     funFacts: string[];
-    imagesByDate: Record<string, string[]>;
+    contentByDate: Record<string, Array<{
+        type: 'text' | 'image' | 'video';
+        value: string;
+    }>>;
 };
 
 export type Trip = {

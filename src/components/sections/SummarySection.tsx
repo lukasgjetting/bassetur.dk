@@ -6,6 +6,7 @@ import { DateTime } from "luxon";
 import Image from "next/image";
 import React, { ReactNode } from "react";
 import tinycolor from "tinycolor2";
+import SectionHeading from "../SectionHeading";
 
 type KeyInfoSectionProps = {
     trip: Trip;
@@ -19,11 +20,9 @@ const SummarySection: React.FC<KeyInfoSectionProps> = ({ trip }) => {
         .filter((d): d is DateTime => d != null);
 
     return (
-        <div className="bg-[#FFF5E5]">
+        <div id="trip-summary" className="bg-[#FFF5E5]">
             <div className="p-8 max-w-screen-lg mx-auto">
-                <h2 className={classNames("text-6xl font-bold text-[#AF8B75]", fuzzyBubbles.className)}>
-                    Indholdsfortegnelse
-                </h2>
+                <SectionHeading color="#AF8B75">Indholdsfortegnelse</SectionHeading>
                 <div className="h-8" />
                 <div className="flex">
                     <div className="pr-16">
@@ -50,11 +49,7 @@ const SummarySection: React.FC<KeyInfoSectionProps> = ({ trip }) => {
                                         }
 
                                         const currentStay = getCurrentStay(trip.stays, d);
-                                        const previousStay = (currentStay != null ?
-                                            (trip.stays[trip.stays.indexOf(currentStay) - 1] ?? null):
-                                            null  
-                                        );
-                                        const isFirstDay = previousStay != null && DateTime.fromISO(previousStay.endDate).plus({ day: 1 }).hasSame(d, 'day');
+                                        const tomorrowStay = getCurrentStay(trip.stays, d.plus({ days: 1 }))
 
                                         let backgroundColor: string;
 
@@ -85,8 +80,8 @@ const SummarySection: React.FC<KeyInfoSectionProps> = ({ trip }) => {
                                                 >
                                                     <div className="absolute inset-0 flex">
                                                         {[
-                                                            ...(isFirstDay ? [previousStay.color] : []),
                                                             ...(!isBeforeStart && !isAfterEnd && currentStay != null ? [backgroundColor] : []),
+                                                            ...(tomorrowStay != null && currentStay != tomorrowStay ? [tomorrowStay.color] : []),
                                                         ].map((color, index) => (
                                                             <a
                                                                 key={index.toString()}

@@ -1,3 +1,4 @@
+import { Settings } from 'luxon'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
@@ -8,6 +9,8 @@ export const metadata: Metadata = {
   title: 'bassetur.dk',
   description: 'Store Basse og Lille Basse på tur',
 }
+
+Settings.defaultLocale = 'da-DK';
 
 export default function RootLayout({
   children,
