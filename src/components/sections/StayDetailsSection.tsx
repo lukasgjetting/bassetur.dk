@@ -10,6 +10,7 @@ import Image from "next/image";
 import getPetTypeIconUrl from "@/utils/getPetTypeIconUrl";
 import getPetGenderIconUrl from "@/utils/getPetGenderIconUrl";
 import getStayDateKey from "@/utils/getStayDateKey";
+import getCdnImageUrl from "@/utils/getCdnImageUrl";
 import getStayKey from "@/utils/getStayKey";
 import useLightbox from "../../utils/useLightbox";
 
@@ -82,7 +83,7 @@ const StayDetailsSection: React.FC<StayDetailsSectionProps> = ({ trip }) => {
                           >
                             <div className="relative">
                               <Image
-                                src={pet.imageSourceUrl}
+                                src={getCdnImageUrl(pet.imageSourceUrl)}
                                 width={128}
                                 height={128}
                                 alt=""
@@ -147,7 +148,7 @@ const StayDetailsSection: React.FC<StayDetailsSectionProps> = ({ trip }) => {
                 </div>
                 <div className="w-2/5">
                   <Image
-                    src={stay.imageSourceUrl}
+                    src={getCdnImageUrl(stay.imageSourceUrl)}
                     width={480}
                     height={640}
                     alt=""
@@ -213,7 +214,7 @@ const StayDetailsSection: React.FC<StayDetailsSectionProps> = ({ trip }) => {
                                     element = (
                                       // eslint-disable-next-line @next/next/no-img-element
                                       <img
-                                        src={c.value}
+                                        src={getCdnImageUrl(c.value)}
                                         alt=""
                                         loading="lazy"
                                         className="h-48 w-auto object-cover cursor-pointer transition hover:-translate-y-1 hover:scale-105 hover:shadow"
@@ -254,7 +255,7 @@ const StayDetailsSection: React.FC<StayDetailsSectionProps> = ({ trip }) => {
                                     element = (
                                       <div className="w-full">
                                         <video
-                                          src={c.value}
+                                          src={getCdnImageUrl(c.value)}
                                           controls
                                           className="h-96 w-auto object-cover"
                                         />
