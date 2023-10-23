@@ -243,10 +243,12 @@ const StayDetailsSection: React.FC<StayDetailsSectionProps> = ({ trip }) => {
                                                 : undefined,
                                             )
                                             .filter((c) => c.type === "image")
-                                            .map((c) => c.value);
+                                            .map((c) =>
+                                              getCdnImageUrl(c.value),
+                                            );
 
                                           lightbox.openImage(
-                                            c.value,
+                                            getCdnImageUrl(c.value),
                                             images,
                                             e.target as HTMLImageElement,
                                           );
