@@ -3,7 +3,7 @@ export type Stay = {
   endDate: `${number}-${number}-${number}`;
   location: string;
   transport: "car" | "bus" | "train" | "plane" | null;
-  imageSourceUrl: string;
+  imageSourceUrl: string | null;
   color: string;
   pets: Array<{
     id: string;

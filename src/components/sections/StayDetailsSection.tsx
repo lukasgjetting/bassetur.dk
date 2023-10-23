@@ -148,7 +148,11 @@ const StayDetailsSection: React.FC<StayDetailsSectionProps> = ({ trip }) => {
                 </div>
                 <div className="w-2/5">
                   <Image
-                    src={getCdnImageUrl(stay.imageSourceUrl)}
+                    src={
+                      stay.imageSourceUrl == null
+                        ? getCdnImageUrl("/default-map.jpg")
+                        : getCdnImageUrl(stay.imageSourceUrl)
+                    }
                     width={480}
                     height={640}
                     alt=""
