@@ -150,7 +150,7 @@ const StayDetailsSection: React.FC<StayDetailsSectionProps> = ({ trip }) => {
                   <Image
                     src={
                       stay.imageSourceUrl == null
-                        ? getCdnImageUrl("/default-map.jpg")
+                        ? getCdnImageUrl("default-map.jpg")
                         : getCdnImageUrl(stay.imageSourceUrl)
                     }
                     width={480}
