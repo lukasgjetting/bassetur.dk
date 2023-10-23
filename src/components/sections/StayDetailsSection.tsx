@@ -53,7 +53,7 @@ const StayDetailsSection: React.FC<StayDetailsSectionProps> = ({ trip }) => {
               <div className="flex gap-2">
                 <div className="flex-1">
                   <SectionHeading color={stay.color}>
-                    {stay.location ?? "Ukendt"}
+                    {stay.location || "Ukendt"}
                   </SectionHeading>
                   <div>
                     {startDate.toLocaleString({
