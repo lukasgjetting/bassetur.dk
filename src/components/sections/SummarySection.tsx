@@ -246,6 +246,7 @@ const SummarySection: React.FC<KeyInfoSectionProps> = ({ trip }) => {
             }, [])}
           </div>
         </div>
+        <div className="h-8" />
       </div>
     </div>
   );

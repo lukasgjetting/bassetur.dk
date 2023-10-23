@@ -87,7 +87,7 @@ const StayDetailsSection: React.FC<StayDetailsSectionProps> = ({ trip }) => {
                                 width={128}
                                 height={128}
                                 alt=""
-                                className="w-16 h-16 rounded-full border object-contain"
+                                className="w-16 h-16 rounded-full border object-cover"
                               />
                               <Image
                                 src={getPetGenderIconUrl(pet.gender)}
@@ -295,6 +295,7 @@ const StayDetailsSection: React.FC<StayDetailsSectionProps> = ({ trip }) => {
                 </>
               )}
             </div>
+            <div className="h-16" />
           </div>
         );
       })}
