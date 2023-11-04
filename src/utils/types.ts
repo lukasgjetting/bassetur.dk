@@ -15,12 +15,15 @@ export type Stay = {
     imageSourceUrl: string;
   }>;
   funFacts: string[];
-  contentByDate: Record<
+  dates: Record<
     string,
-    Array<{
-      type: "text" | "image" | "video";
-      value: string;
-    }>
+    {
+      title: string;
+      content: Array<{
+        type: "text" | "image" | "video";
+        value: string;
+      }>;
+    }
   >;
 };
 

@@ -1,9 +1,23 @@
 "use client";
 
-import Lightbox from "@/components/Lightbox";
-import { useCallback, useState } from "react";
+import dynamic from "next/dynamic";
+import { ReactNode, useCallback, useState } from "react";
 
-const useLightbox = () => {
+export type UseLightboxValue = {
+  openImage: (
+    image: string,
+    allImages: string[],
+    imageElement?: HTMLImageElement,
+  ) => void;
+  render: () => ReactNode;
+};
+
+const Lightbox = dynamic(() => import("@/components/Lightbox"), {
+  loading: () => <div />,
+  ssr: false,
+});
+
+const useLightbox = (): UseLightboxValue => {
   const [data, setData] = useState<{
     shownImage?: string;
     images: string[];

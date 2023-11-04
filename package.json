@@ -11,6 +11,7 @@
     "publish-trip": "ts-node-esm -r dotenv/config ./scripts/publish-trip.ts"
   },
   "dependencies": {
+    "@formkit/auto-animate": "^0.8.0",
     "@vercel/kv": "^0.2.3",
     "classnames": "^2.3.2",
     "luxon": "^3.4.3",

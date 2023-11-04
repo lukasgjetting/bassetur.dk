@@ -5,8 +5,15 @@ import SummarySection from "@/components/sections/SummarySection";
 import { Trip } from "@/utils/types";
 import { kv } from "@vercel/kv";
 import { Settings } from "luxon";
+import { Metadata } from "next";
 
 Settings.defaultLocale = "da";
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+  },
+};
 
 export default async function TripDetails({
   params,
@@ -14,7 +21,14 @@ export default async function TripDetails({
   params: { tripKey: string };
 }) {
   try {
-    const tripData = (await kv.get(`trips-${params.tripKey}`)) as Trip | null;
+    let tripData: Trip | null = null;
+
+    if (process.env.NODE_ENV === "development") {
+      tripData = (await import(`../../../../trip-data/${params.tripKey}.ts`))
+        .default as Trip;
+    } else {
+      tripData = (await kv.get(`trips-${params.tripKey}`)) as Trip | null;
+    }
 
     if (tripData == null || typeof tripData !== "object") {
       throw new Error("Ugyldig turkode");

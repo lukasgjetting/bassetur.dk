@@ -62,6 +62,7 @@ const ScrollToEnterSection = () => {
         <div className="flex-1">
           <Image
             src="/images/basserne.jpg"
+            priority
             alt=""
             width={3088}
             height={2320}

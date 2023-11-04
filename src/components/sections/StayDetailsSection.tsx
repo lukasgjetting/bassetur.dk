@@ -13,6 +13,7 @@ import getStayDateKey from "@/utils/getStayDateKey";
 import getCdnImageUrl from "@/utils/getCdnImageUrl";
 import getStayKey from "@/utils/getStayKey";
 import useLightbox from "../../utils/useLightbox";
+import StayContentList from "../StayContentList";
 
 Settings.defaultLocale = "da";
 
@@ -37,7 +38,7 @@ const StayDetailsSection: React.FC<StayDetailsSectionProps> = ({ trip }) => {
           .splitBy({ day: 1 })
           .map((i) => i.start!);
 
-        const hasContent = Object.keys(stay.contentByDate).length > 0;
+        const hasContent = Object.keys(stay.dates ?? {}).length > 0;
 
         return (
           <div key={stay.id} id={getStayKey(stay)} className="bg-white">
@@ -173,7 +174,9 @@ const StayDetailsSection: React.FC<StayDetailsSectionProps> = ({ trip }) => {
                   <div className="flex flex-col">
                     {days.map((d, dayIndex) => {
                       const key = getStayDateKey(stay, d);
-                      const content = stay.contentByDate[d.toISODate()!] ?? [];
+                      const dateInfo = stay.dates[d.toISODate()!];
+                      const content = dateInfo?.content ?? [];
+                      const title = dateInfo?.title ?? "";
 
                       if (content.length === 0) {
                         return <div key={key} id={key} />;
@@ -206,88 +209,11 @@ const StayDetailsSection: React.FC<StayDetailsSectionProps> = ({ trip }) => {
                               style={{ backgroundColor: stay.color }}
                             />
                           </div>
-                          <div className="flex-1 flex flex-col pt-8">
-                            <div className="flex flex-wrap gap-4">
-                              {content.map((c, index) => {
-                                const contentType = c.type;
-
-                                let element: ReactNode = null;
-
-                                switch (contentType) {
-                                  case "image":
-                                    element = (
-                                      // eslint-disable-next-line @next/next/no-img-element
-                                      <img
-                                        src={getCdnImageUrl(c.value)}
-                                        alt=""
-                                        loading="lazy"
-                                        className="h-48 w-auto object-cover cursor-pointer transition hover:-translate-y-1 hover:scale-105 hover:shadow"
-                                        onClick={(e) => {
-                                          const startElement = content
-                                            .slice(0, index)
-                                            .reverse()
-                                            .find((c) => c.type !== "image");
-                                          const cutoffElement = content
-                                            .slice(index)
-                                            .find((c) => c.type !== "image");
-
-                                          const images = content
-                                            .slice(
-                                              startElement != null
-                                                ? content.indexOf(
-                                                    startElement,
-                                                  ) + 1
-                                                : 0,
-                                              cutoffElement != null
-                                                ? content.indexOf(cutoffElement)
-                                                : undefined,
-                                            )
-                                            .filter((c) => c.type === "image")
-                                            .map((c) =>
-                                              getCdnImageUrl(c.value),
-                                            );
-
-                                          lightbox.openImage(
-                                            getCdnImageUrl(c.value),
-                                            images,
-                                            e.target as HTMLImageElement,
-                                          );
-                                        }}
-                                      />
-                                    );
-                                    break;
-
-                                  case "video":
-                                    element = (
-                                      <div className="w-full">
-                                        <video
-                                          src={getCdnImageUrl(c.value)}
-                                          controls
-                                          className="h-96 w-auto object-cover"
-                                        />
-                                      </div>
-                                    );
-                                    break;
-
-                                  case "text":
-                                    element = (
-                                      <div className="w-full">{c.value}</div>
-                                    );
-                                    break;
-
-                                  default:
-                                    contentType satisfies never;
-                                    break;
-                                }
-
-                                return (
-                                  <React.Fragment key={index}>
-                                    {element}
-                                  </React.Fragment>
-                                );
-                              })}
-                            </div>
-                          </div>
+                          <StayContentList
+                            title={title}
+                            content={content}
+                            openImage={lightbox.openImage}
+                          />
                         </div>
                       );
                     })}

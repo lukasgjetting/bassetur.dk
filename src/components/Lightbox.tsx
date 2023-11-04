@@ -1,4 +1,4 @@
-"use client";
+"use clienta";
 
 import classNames from "classnames";
 import Image from "next/image";
@@ -118,6 +118,15 @@ const Lightbox: React.FC<LightboxProps> = ({
     };
   }, [isOpen, close, changeImage]);
 
+  const top =
+    typeof window === "undefined"
+      ? 0
+      : originalBoundingBox?.top ?? window.innerHeight / 2;
+  const left =
+    typeof window === "undefined"
+      ? 0
+      : originalBoundingBox?.left ?? window.innerWidth / 2;
+
   return (
     <div
       className={classNames(
@@ -133,8 +142,8 @@ const Lightbox: React.FC<LightboxProps> = ({
         ...(isOpen
           ? { top: 0, left: 0, right: 0, bottom: 64 }
           : {
-              top: originalBoundingBox?.top ?? window.innerHeight / 2,
-              left: originalBoundingBox?.left ?? window.innerWidth / 2,
+              top,
+              left,
               width: originalBoundingBox?.width ?? 0,
               height: originalBoundingBox?.height ?? 0,
             }),
