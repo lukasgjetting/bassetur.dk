@@ -150,7 +150,12 @@ const Lightbox: React.FC<LightboxProps> = ({
       }}
     >
       {currentImage != null && (
-        <Image src={currentImage} alt="" fill className="object-contain" />
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={currentImage}
+          alt=""
+          className="object-contain w-full h-full"
+        />
       )}
       {isOpen && !isAnimating && (
         <>
