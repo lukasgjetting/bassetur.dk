@@ -28,6 +28,7 @@ const PinInput = () => {
             style={{
               textShadow: "0 0 0 #000",
             }}
+            onChange={() => {}}
             value={pin[index] ?? ""}
             onKeyDown={(e) => {
               const key = e.key;
