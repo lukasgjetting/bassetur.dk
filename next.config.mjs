@@ -1,3 +1,5 @@
+const wishListUrl = "https://onskeskyen.dk/da/wishlists/g058o6e1yfIWuJYr";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -10,19 +12,16 @@ const nextConfig = {
       },
     ],
   },
-  rewrites: async () => {
-    return [
-      {
-        source: `/bryllup/${encodeURIComponent("ønskeliste")}`,
-        destination: "/bryllup/oenskeliste",
-      },
-    ];
-  },
   redirects: async () => {
     return [
       {
         source: `/${encodeURIComponent("ønskeliste")}`,
-        destination: "/bryllup/ønskeliste",
+        destination: wishListUrl,
+        permanent: true,
+      },
+      {
+        source: `/bryllup/${encodeURIComponent("ønskeliste")}`,
+        destination: wishListUrl,
         permanent: true,
       },
       {
