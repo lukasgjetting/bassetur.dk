@@ -3,9 +3,9 @@ import useCart from "../useCart";
 import Image from "next/image";
 import { trpc } from "@/lib/trpc";
 import classNames from "classnames";
+import useUserName from "../useUserName";
 
 type ConfirmOrderModalProps = {
-  userName: string;
   isVisible: boolean;
   onClose: () => void;
 };
@@ -13,8 +13,8 @@ type ConfirmOrderModalProps = {
 const ConfirmOrderModal: React.FC<ConfirmOrderModalProps> = ({
   isVisible,
   onClose,
-  userName,
 }) => {
+  const [userName] = useUserName();
   const [cart, { addToCart, removeFromCart, clearCart }] = useCart();
   const createOrderMutation = trpc.beverage.createBeverageOrder.useMutation({
     onSuccess: () => {

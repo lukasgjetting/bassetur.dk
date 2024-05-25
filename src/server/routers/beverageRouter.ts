@@ -83,4 +83,36 @@ export const beverageRouter = router({
         }),
       ]);
     }),
+  getPreviousOrders: procedure
+    .input(z.object({ userName: z.string() }))
+    .query(async (req) => {
+      const orders = await prisma.order.findMany({
+        where: {
+          userId: req.input.userName,
+        },
+        include: {
+          orderLines: {
+            include: {
+              beverage: true,
+            },
+          },
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+
+      return orders.map((o) => ({
+        id: o.id,
+        createdAt: o.createdAt,
+        orderLines: o.orderLines.map((ol) => ({
+          beverage: {
+            id: ol.beverage.id,
+            name: ol.beverage.name,
+            imageSourceUrl: ol.beverage.imageSourceUrl,
+          },
+          quantity: ol.quantity,
+        })),
+      }));
+    }),
 });

@@ -10,12 +10,10 @@ import useCart, { Beverage } from "./useCart";
 import ConfirmOrderModal from "./components/ConfirmOrderModal";
 import { inferProcedureOutput } from "@trpc/server";
 import { AppRouter } from "@/server/routers/_app";
+import useUserName from "./useUserName";
 
 function MainBeverageScreen() {
-  const [userName, setUserName, logOut] = useLocalStorage<string | null>(
-    "userName",
-    null,
-  );
+  const [userName, setUserName, logOut] = useUserName();
 
   const [cart, { addToCart, removeFromCart, numberOfItemsInCart }] = useCart();
 
@@ -33,13 +31,13 @@ function MainBeverageScreen() {
       {} as Record<string, Beverage>,
     ) ?? {};
 
-  if (userName == null) {
+  if (userName === "") {
     return <SignInView onSignIn={(userName) => setUserName(userName)} />;
   }
 
   return (
     <div className="min-h-screen bg-purple-500 text-purple-950">
-      <Header userName={userName} />
+      <Header />
       <div className="flex flex-wrap p-2">
         {beveragesQuery.data?.map((b) => (
           <div key={b.id} className="w-1/2 p-2">
@@ -94,7 +92,6 @@ function MainBeverageScreen() {
         Bestil ({numberOfItemsInCart})
       </button>
       <ConfirmOrderModal
-        userName={userName}
         isVisible={isConfirmOrderModalOpen}
         onClose={() => setIsConfirmOrderModalOpen(false)}
       />
