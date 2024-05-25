@@ -5,3 +5,12 @@
 html {
   scroll-behavior: smooth;
 }
+
+@layer base {
+  @font-face {
+    font-family: Rosabelia;
+    font-weight: 400;
+    font-display: swap;
+    src: url("/fonts/rosabelia.ttf") format("ttf");
+  }
+}

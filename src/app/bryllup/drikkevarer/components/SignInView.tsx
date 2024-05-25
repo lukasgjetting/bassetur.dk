@@ -1,6 +1,7 @@
 "use client";
 
 import { trpc } from "@/lib/trpc";
+import { fonts } from "@/utils/fonts";
 import { Transition } from "@headlessui/react";
 import classNames from "classnames";
 import React, { useState } from "react";
@@ -39,13 +40,18 @@ const SignInView: React.FC<SignInViewProps> = ({ onSignIn }) => {
 
   return (
     <div>
-      <h1>Velkommen!</h1>
-      <h2>Du kan vælge dit navn herunder</h2>
-      <div className="flex flex-col gap-4">
+      <div className="px-4 pt-16 pb-6 bg-green-suit">
+        <h2 className="text-sm text-green-dust opacity-60">
+          Velkommen til vores 5-stjernede web-app
+        </h2>
+        <div className="h-3" />
+        <h1 className="text-3xl font-medium text-green-dust">Hvem er du?</h1>
+      </div>
+      <div className="flex flex-col gap-2 px-4 pt-4">
         {usersQuery.data?.map((user) => (
           <button
             key={user.name}
-            className="p-2 bg-slate-50"
+            className="p-3 border border-purple-200 rounded-lg text-left text-bassebrun bg-purple-lavender"
             onClick={() => {
               setSelectedUserName(user.name);
               setIsSecurityModalOpen(true);
@@ -55,6 +61,13 @@ const SignInView: React.FC<SignInViewProps> = ({ onSignIn }) => {
           </button>
         ))}
       </div>
+      <div
+        className={classNames(
+          "fixed inset-0 bg-black/20 transition duration-500",
+          isSecurityModalOpen ? "opacity-100" : "opacity-0 pointer-events-none",
+        )}
+        onClick={() => setIsSecurityModalOpen(false)}
+      />
       <Transition
         show={isSecurityModalOpen}
         enter="transition duration-500"
@@ -64,21 +77,23 @@ const SignInView: React.FC<SignInViewProps> = ({ onSignIn }) => {
         leaveFrom="opacity-100 translate-y-0"
         leaveTo="opacity-0 -translate-y-4"
         as="div"
-        className="fixed inset-0 p-4 flex flex-col items-stretch justify-center"
+        className="fixed left-4 right-4 bottom-4 flex flex-col items-stretch justify-center"
       >
-        <div className="p-4 bg-yellow-500 relative">
-          <button
-            className="absolute right-1 top-1"
-            onClick={() => setIsSecurityModalOpen(false)}
-          >
-            luk
-          </button>
+        <div className="p-6 rounded-lg bg-white text-green-suit relative">
+          <div className="flex justify-between items-center">
+            <span className="text-xl">Hej {selectedUser?.name}!</span>
+            <button onClick={() => setIsSecurityModalOpen(false)}>luk</button>
+          </div>
+          <div className="h-4" />
           {selectedUserName != null && selectedUser != null ? (
             <>
-              Hej {selectedUser?.name}!
               <p>Bare lige for at være helt sikker... 🤔</p>
-              {selectedUser?.securityQuestion}
-              <div className="flex flex-col">
+              <div className="h-4" />
+              <div className="bg-green-dust text-green-suit rounded-lg p-4 text-center">
+                {selectedUser?.securityQuestion}
+              </div>
+              <div className="h-4" />
+              <div className="flex flex-col gap-2">
                 {selectedUser?.securityQuestionAnswerOptions.map((option) => {
                   const isPreviousSubmission =
                     submitSecurityAnswerMutation.variables
@@ -106,13 +121,15 @@ const SignInView: React.FC<SignInViewProps> = ({ onSignIn }) => {
                         });
                       }}
                       className={classNames(
-                        "py-4 bg-slate-50 transition-colors duration-500 relative",
+                        "py-3 transition-colors duration-500 relative border border-purple-200 rounded-lg",
                         isPreviousSubmission &&
                           submissionResult === true &&
-                          "bg-green-500",
+                          "bg-green-200 text-green-900",
                         isPreviousSubmission &&
                           submissionResult === false &&
-                          "bg-red-500",
+                          "bg-red-200 text-red-900",
+                        !isPreviousSubmission &&
+                          "bg-purple-lavender text-bassebrun",
                       )}
                     >
                       <span

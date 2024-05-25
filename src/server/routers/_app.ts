@@ -12,6 +12,9 @@ export const appRouter = router({
         securityQuestion: true,
         securityQuestionAnswerOptions: true,
       },
+      orderBy: {
+        name: "asc",
+      },
     });
 
     return users.map((u) => ({
