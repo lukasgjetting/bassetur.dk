@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                            String   @id @default(cuid())
+  name                          String
+  createdAt                     DateTime @default(now())
+  updatedAt                     DateTime @updatedAt
+  securityQuestion              String   @db.Text
+  // Semicolon separated values
+  securityQuestionAnswerOptions String
+  securityQuestionAnswer        String
+  orders                        Order[]
+}
+
+model Beverage {
+  id             String      @id @default(cuid())
+  name           String
+  description    String      @db.Text
+  imageSourceUrl String
+  quantity       Int
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  orderLines     OrderLine[]
+}
+
+enum OrderStatus {
+  PENDING
+  COMPLETED
+}
+
+model Order {
+  id         String      @id @default(cuid())
+  userId     String
+  status     OrderStatus
+  createdAt  DateTime    @default(now())
+  user       User        @relation(fields: [userId], references: [id])
+  orderLines OrderLine[]
+}
+
+model OrderLine {
+  id         String   @id @default(cuid())
+  orderId    String
+  beverageId String
+  quantity   Int
+  createdAt  DateTime @default(now())
+  beverage   Beverage @relation(fields: [beverageId], references: [id])
+  order      Order    @relation(fields: [orderId], references: [id])
+}
