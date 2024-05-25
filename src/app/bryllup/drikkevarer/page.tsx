@@ -1,42 +1,45 @@
 "use client";
+
 import { trpc } from "@/lib/trpc";
-import { useSearchParams } from "next/navigation";
-import { useState } from "react";
-import SignInView from "./components/SignInView";
+import { useEffect, useState } from "react";
+import MainBeverageScreen from "./MainBeverageScreen";
+import classNames from "classnames";
+import Image from "next/image";
 
-function Drikkevarer() {
-  const [userId, setUserId] = useState(() =>
-    typeof localStorage === "undefined" ? null : localStorage.getItem("userId"),
-  );
-  const searchParams = useSearchParams();
-  const query = trpc.beverage.getBeverages.useQuery();
+const Drikkevarer = () => {
+  const [isLoading, setIsLoading] = useState(true);
 
-  if (userId == null) {
-    return (
-      <SignInView
-        onSignIn={(userId) => {
-          localStorage.setItem("userId", userId);
-          setUserId(userId);
-        }}
-      />
-    );
-  }
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2500);
+  }, []);
 
   return (
-    <div className="h-screen flex justify-center items-center text-center bg-purple-500 text-purple-950">
-      Kommer snart
-      {JSON.stringify(query.data, null, 2)}
-      {JSON.stringify(searchParams.get("test"), null, 2)}
-      <button
-        onClick={() => {
-          localStorage.removeItem("userId");
-          setUserId(null);
-        }}
+    <div>
+      {!isLoading && <MainBeverageScreen />}
+      <div
+        className={classNames(
+          "fixed inset-0 p-4 bg-purple-800 flex flex-col gap-8 justify-center items-center transition duration-1000",
+          isLoading
+            ? "translate-y-0"
+            : "translate-y-[150vh] pointer-events-none",
+        )}
       >
-        log ud
-      </button>
+        <Image
+          alt=""
+          src="/images/bassebryllup-klistermærke.png"
+          width={200}
+          height={200}
+        />
+        <h1 className="text-white font-bold text-4xl text-center">
+          Velkommen til vores bryllup 🥹
+        </h1>
+        <span className="text-white/75">Vent venligst...</span>
+        <div className="h-16"></div>
+      </div>
     </div>
   );
-}
+};
 
 export default trpc.withTRPC(Drikkevarer);

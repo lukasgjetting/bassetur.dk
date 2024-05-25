@@ -8,7 +8,6 @@ export const appRouter = router({
   getUsers: procedure.query(async () => {
     const users = await prisma.user.findMany({
       select: {
-        id: true,
         name: true,
         securityQuestion: true,
         securityQuestionAnswerOptions: true,
@@ -23,14 +22,14 @@ export const appRouter = router({
   submitUserSecurityQuestion: procedure
     .input(
       z.object({
-        userId: z.string(),
+        userName: z.string(),
         securityQuestionAnswer: z.string(),
       }),
     )
     .mutation(async (req) => {
       const user = await prisma.user.findFirstOrThrow({
         where: {
-          id: req.input.userId,
+          name: req.input.userName,
         },
       });
 

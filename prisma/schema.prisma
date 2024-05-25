@@ -8,8 +8,7 @@ datasource db {
 }
 
 model User {
-  id                            String   @id @default(cuid())
-  name                          String
+  name                          String   @id
   createdAt                     DateTime @default(now())
   updatedAt                     DateTime @updatedAt
   securityQuestion              String   @db.Text
@@ -40,7 +39,7 @@ model Order {
   userId     String
   status     OrderStatus
   createdAt  DateTime    @default(now())
-  user       User        @relation(fields: [userId], references: [id])
+  user       User        @relation(fields: [userId], references: [name])
   orderLines OrderLine[]
 }
 
