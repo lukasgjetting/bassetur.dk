@@ -9,13 +9,24 @@ type HeaderProps = {};
 
 const Header: React.FC<HeaderProps> = () => {
   const [userName] = useUserName();
+
   const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false);
+
   const historyQuery = trpc.beverage.getPreviousOrders.useQuery({ userName });
 
   return (
     <div className="flex justify-between items-center bg-purple-800 text-purple-50 p-4">
       <h1>Hej {userName}!</h1>
-      <div>
+      <div className="flex gap-2 items-center">
+        <button
+          className="hover:bg-purple-700 text-sm opacity-75 text-purple-50 p-2 rounded-lg"
+          onClick={() => {
+            setIsHistoryModalOpen(true);
+            historyQuery.refetch();
+          }}
+        >
+          Vælg is
+        </button>
         <button
           className="bg-purple-700 text-purple-50 p-2 rounded-lg"
           onClick={() => {
