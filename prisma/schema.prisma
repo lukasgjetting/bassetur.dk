@@ -22,6 +22,8 @@ model Beverage {
   id             String      @id @default(cuid())
   name           String
   description    String      @db.Text
+  // Semicolon separated values
+  ingredients    String?     @db.Text
   imageSourceUrl String
   quantity       Int
   createdAt      DateTime    @default(now())

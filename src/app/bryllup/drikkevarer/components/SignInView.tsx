@@ -89,7 +89,7 @@ const SignInView: React.FC<SignInViewProps> = ({ onSignIn }) => {
             <>
               <p>Bare lige for at være helt sikker... 🤔</p>
               <div className="h-4" />
-              <div className="bg-green-dust text-green-suit rounded-lg p-4 text-center">
+              <div className="border border-green-dust text-green-suit rounded-lg p-4 text-center">
                 {selectedUser?.securityQuestion}
               </div>
               <div className="h-4" />

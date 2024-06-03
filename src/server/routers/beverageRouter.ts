@@ -12,6 +12,10 @@ export const beverageRouter = router({
       name: b.name,
       imageSourceUrl: b.imageSourceUrl,
       description: b.description,
+      ingredients:
+        b.ingredients == null || b.ingredients === ""
+          ? []
+          : b.ingredients.split(";"),
     }));
   }),
   createBeverageOrder: procedure

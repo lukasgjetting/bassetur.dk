@@ -2,13 +2,13 @@ import { AppRouter } from "@/server/routers/_app";
 import { inferProcedureOutput } from "@trpc/server";
 import { useLocalStorage } from "usehooks-ts";
 
-export type Beverage = inferProcedureOutput<
+export type CartBeverage = inferProcedureOutput<
   AppRouter["beverage"]["getBeverages"]
 >[number];
 
 export type Cart = {
   items: Array<{
-    beverage: Beverage;
+    beverage: CartBeverage;
     quantity: number;
   }>;
 };
@@ -23,7 +23,7 @@ const useCart = () => {
     },
   );
 
-  const addToCart = (beverage: Beverage) => {
+  const addToCart = (beverage: CartBeverage) => {
     if (cart.items.some((item) => item.beverage.id === beverage.id)) {
       setCart({
         items: cart.items.map((item) =>

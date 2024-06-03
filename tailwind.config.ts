@@ -18,6 +18,7 @@ const config: Config = {
         "green-suit": "#39543C",
         "green-dust": "#B7CB9B",
         "purple-lavender": "#F7F4FF",
+        cream: "#FFFFF9",
       },
     },
   },
