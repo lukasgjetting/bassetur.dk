@@ -47,7 +47,7 @@ function MainBeverageScreen() {
       <button onClick={() => logOut()}>log ud</button>
       <button
         className={classNames(
-          "fixed z-20 bottom-8 left-8 right-8 py-4 text-white bg-green-dust text-2xl shadow-xl rounded-full text-center font-bold transition ",
+          "fixed z-20 bottom-8 left-8 right-8 py-4 text-white bg-green-dust text-2xl shadow-xl rounded-full text-center font-bold transition",
           numberOfItemsInCart === 0
             ? "pointer-events-none translate-y-24"
             : "translate-y-0",

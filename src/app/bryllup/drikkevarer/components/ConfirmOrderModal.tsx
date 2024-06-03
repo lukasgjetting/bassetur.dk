@@ -22,7 +22,7 @@ const ConfirmOrderModal: React.FC<ConfirmOrderModalProps> = ({
         onClose();
         clearCart();
         createOrderMutation.reset();
-      }, 3000);
+      }, 2000);
     },
     onError: (error) => {
       alert(error.message);
@@ -41,41 +41,53 @@ const ConfirmOrderModal: React.FC<ConfirmOrderModalProps> = ({
     <Transition
       show={isVisible}
       enter="transition duration-500"
-      enterFrom="opacity-0 translate-y-4"
+      enterFrom="opacity-0 translate-y-32"
       enterTo="opacity-100 translate-y-0"
       leave="transition duration-500"
       leaveFrom="opacity-100 translate-y-0"
-      leaveTo="opacity-0 -translate-y-4"
+      leaveTo="opacity-0 translate-y-32"
       as="div"
-      className="fixed inset-0 bg-purple-800/80 flex justify-center items-center p-4"
+      className="fixed inset-0 flex flex-col justify-end items-center z-50"
     >
-      <div className="bg-white border p-4">
-        <h1 className="text-2xl font-bold">Bekræft din ordre</h1>
-        <div className="h-4" />
+      <div className="absolute -inset-32 bg-black/20 z-0" onClick={onClose} />
+      <div className="z-10 bg-white border p-4 w-full rounded-tr-3xl rounded-tl-3xl">
+        <div className="flex items-center justify-between">
+          <h1 className="text-xl font-bold">Bekræft din bestilling</h1>
+          <div className="w-4"></div>
+          <button
+            onClick={onClose}
+            className="text-2xl text-white font-bold w-8 h-8 rounded-full bg-green-suit"
+          >
+            x
+          </button>
+        </div>
+        <div className="h-8" />
         <div className="flex flex-col gap-4">
           {cart.items.map((item) => (
             <div
               key={item.beverage.id}
               className="flex items-center justify-between"
             >
-              <Image
-                alt=""
-                src={item.beverage.imageSourceUrl}
-                width={50}
-                height={50}
-              />
-              <span>{item.beverage.name}</span>
+              <div className="flex items-center gap-4">
+                <Image
+                  alt=""
+                  src={item.beverage.imageSourceUrl}
+                  width={50}
+                  height={50}
+                />
+                <span>{item.beverage.name}</span>
+              </div>
               <div className="flex gap-1 items-center">
                 <button
                   onClick={() => removeFromCart(item.beverage.id)}
-                  className="bg-purple-800 text-white h-6 w-6 rounded-full"
+                  className="bg-green-suit text-white h-8 w-8 font-bold text-lg rounded-full"
                 >
                   -
                 </button>
-                <span>{item.quantity}</span>
+                <span className="w-6 h-6 text-center">{item.quantity}</span>
                 <button
                   onClick={() => addToCart(item.beverage)}
-                  className="bg-purple-800 text-white h-6 w-6 rounded-full"
+                  className="bg-green-suit text-white h-8 w-8 font-bold text-lg rounded-full"
                 >
                   +
                 </button>
@@ -83,15 +95,15 @@ const ConfirmOrderModal: React.FC<ConfirmOrderModalProps> = ({
             </div>
           ))}
         </div>
-        <div className="h-4" />
+        <div className="h-8" />
         <button
           disabled={
             createOrderMutation.isPending || createOrderMutation.isSuccess
           }
           className={classNames(
-            "text-white p-4 w-full rounded-lg transition",
+            "text-white p-4 w-full transition text-2xl shadow-xl rounded-full text-center font-bold",
             createOrderMutation.isPending && "opacity-50",
-            createOrderMutation.isSuccess ? "bg-green-600" : "bg-purple-800",
+            createOrderMutation.isSuccess ? "bg-green-600" : "bg-green-dust",
           )}
           onClick={() =>
             createOrderMutation.mutate({
@@ -105,7 +117,7 @@ const ConfirmOrderModal: React.FC<ConfirmOrderModalProps> = ({
         >
           {buttonLabel}
         </button>
-        <button onClick={onClose}>Luk</button>
+        <div className="h-4" />
       </div>
     </Transition>
   );

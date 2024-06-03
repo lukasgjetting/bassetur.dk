@@ -57,30 +57,36 @@ const Header: React.FC<HeaderProps> = () => {
             x
           </button>
         </div>
-        {(historyQuery.data?.length ?? 0) > 0 ? (
-          historyQuery.data?.map((o) => (
-            <div key={o.id} className="">
-              <h5>
-                {new Date(o.createdAt).getHours()}:
-                {new Date(o.createdAt).getMinutes()}
-              </h5>
-              <div className="flex flex-col gap-4">
-                {o.orderLines.map((ol) => (
-                  <div key={ol.beverage.id} className="flex items-center gap-2">
-                    <div className="w-8 h-8 relative">
-                      <Image src={ol.beverage.imageSourceUrl} alt="" fill />
-                    </div>
-                    <div>
-                      {ol.beverage.name} x {ol.quantity}
-                    </div>
+        <div className="flex flex-col-reverse">
+          {historyQuery.data != null && historyQuery.data.length > 0 ? (
+            [...historyQuery.data].reverse().map((o, index) => (
+              <div key={o.id} className="pt-8">
+                <div className="flex items-center justify-between">
+                  <h5 className="text-lg font-bold">Bestilling {index + 1}</h5>
+                  <div>
+                    {new Date(o.createdAt).getHours()}:
+                    {new Date(o.createdAt).getMinutes()}
                   </div>
-                ))}
+                </div>
+                <div className="h-2" />
+                <div className="flex flex-col gap-4">
+                  {o.orderLines.map((ol) => (
+                    <div
+                      key={ol.beverage.id}
+                      className="flex items-center gap-2"
+                    >
+                      <div>
+                        {ol.beverage.name} x {ol.quantity}
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))
-        ) : (
-          <div className="text-center py-8">Ingen tidligere bestillinger</div>
-        )}
+            ))
+          ) : (
+            <div className="text-center py-8">Ingen tidligere bestillinger</div>
+          )}
+        </div>
       </Transition>
     </div>
   );
