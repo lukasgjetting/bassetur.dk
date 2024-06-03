@@ -2,6 +2,7 @@ import { z } from "zod";
 import { procedure, router } from "../trpc";
 import { prisma } from "../prisma";
 import { Beverage } from "@prisma/client";
+import { TRPCError } from "@trpc/server";
 
 export const beverageRouter = router({
   getBeverages: procedure.query(async () => {
@@ -118,5 +119,54 @@ export const beverageRouter = router({
           quantity: ol.quantity,
         })),
       }));
+    }),
+  getOrders: procedure.query(async ({ ctx }) => {
+    const orders = await prisma.order.findMany({
+      include: {
+        orderLines: {
+          include: {
+            beverage: true,
+          },
+        },
+        user: true,
+      },
+      orderBy: {
+        createdAt: "asc",
+      },
+    });
+
+    return orders;
+  }),
+  markOrderComplete: procedure
+    .input(z.object({ orderId: z.string() }))
+    .mutation(async ({ input }) => {
+      const order = await prisma.order.findUnique({
+        where: {
+          id: input.orderId,
+        },
+      });
+
+      if (order == null) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Order not found",
+        });
+      }
+
+      if (order.status !== "PENDING") {
+        throw new TRPCError({
+          code: "FORBIDDEN",
+          message: "Order is not pending",
+        });
+      }
+
+      await prisma.order.update({
+        where: {
+          id: order.id,
+        },
+        data: {
+          status: "COMPLETED",
+        },
+      });
     }),
 });
