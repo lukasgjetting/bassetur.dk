@@ -4,6 +4,8 @@ import useUserName from "../useUserName";
 import { trpc } from "@/lib/trpc";
 import { Transition } from "@headlessui/react";
 import Image from "next/image";
+import OrderHistoryModal from "./OrderHistoryModal";
+import SelectIceCreamModal from "./SelectIceCreamModal";
 
 type HeaderProps = {};
 
@@ -11,8 +13,7 @@ const Header: React.FC<HeaderProps> = () => {
   const [userName, setUserName] = useUserName();
 
   const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false);
-
-  const historyQuery = trpc.beverage.getPreviousOrders.useQuery({ userName });
+  const [isIceCreamModalOpen, setIsIceCreamModalOpen] = useState(false);
 
   return (
     <div className="flex justify-between items-center bg-green-suit text-white p-4">
@@ -40,8 +41,7 @@ const Header: React.FC<HeaderProps> = () => {
         <button
           className="hover:bg-green-dust/25 text-sm text-white p-2 rounded-lg"
           onClick={() => {
-            setIsHistoryModalOpen(true);
-            historyQuery.refetch();
+            setIsIceCreamModalOpen(true);
           }}
         >
           Vælg is
@@ -50,66 +50,19 @@ const Header: React.FC<HeaderProps> = () => {
           className="bg-green-dust text-green-suit px-3 py-2 text-xs rounded-lg"
           onClick={() => {
             setIsHistoryModalOpen(true);
-            historyQuery.refetch();
           }}
         >
           Historik
         </button>
       </div>
-      <Transition
-        show={isHistoryModalOpen}
-        enter="transition-opacity duration-300"
-        enterFrom="opacity-0"
-        enterTo="opacity-100"
-        leave="transition-opacity duration-300"
-        leaveFrom="opacity-100"
-        leaveTo="opacity-0"
-        as="div"
-        className="fixed inset-0 overflow-y-auto bg-green-suit p-4 z-50"
-      >
-        <div className="flex items-center justify-between">
-          <h4 className="text-2xl font-bold">Tidligere bestillinger</h4>
-          <button
-            className="text-2xl text-green-suit font-bold w-8 h-8 rounded-full bg-green-dust"
-            onClick={() => setIsHistoryModalOpen(false)}
-          >
-            x
-          </button>
-        </div>
-        <div className="flex flex-col-reverse">
-          {historyQuery.data != null && historyQuery.data.length > 0 ? (
-            [...historyQuery.data].reverse().map((o, index) => (
-              <div key={o.id} className="pt-8">
-                <div className="flex items-center justify-between">
-                  <h5 className="text-lg font-bold text-green-dust">
-                    Bestilling {index + 1}
-                  </h5>
-                  <div>
-                    {new Date(o.createdAt).getHours()}:
-                    {new Date(o.createdAt).getMinutes()}
-                  </div>
-                </div>
-                <div className="h-2" />
-                <div className="flex flex-col gap-1">
-                  {o.orderLines.map((ol) => (
-                    <div
-                      key={ol.beverage.id}
-                      className="flex items-center gap-2"
-                    >
-                      <div>
-                        {ol.beverage.name} x {ol.quantity}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                {index > 0 && <div className="mt-8 -mx-8 h-px bg-white/25" />}
-              </div>
-            ))
-          ) : (
-            <div className="text-center py-8">Ingen tidligere bestillinger</div>
-          )}
-        </div>
-      </Transition>
+      <OrderHistoryModal
+        isOpen={isHistoryModalOpen}
+        onClose={() => setIsHistoryModalOpen(false)}
+      />
+      <SelectIceCreamModal
+        isOpen={isIceCreamModalOpen}
+        onClose={() => setIsIceCreamModalOpen(false)}
+      />
     </div>
   );
 };

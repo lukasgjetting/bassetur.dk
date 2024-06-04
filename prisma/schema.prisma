@@ -16,6 +16,8 @@ model User {
   securityQuestionAnswerOptions String
   securityQuestionAnswer        String
   tableNumber                   String
+  // Semicolon separated values
+  iceCreamSelection             String   @default("Overrask mig;Overrask mig;Overrask mig")
   orders                        Order[]
 }
 

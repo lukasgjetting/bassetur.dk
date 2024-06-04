@@ -2,9 +2,11 @@ import { z } from "zod";
 import { procedure, router } from "../trpc";
 import { beverageRouter } from "./beverageRouter";
 import { prisma } from "../prisma";
+import { iceCreamRouter } from "./iceCreamRouter";
 
 export const appRouter = router({
   beverage: beverageRouter,
+  iceCream: iceCreamRouter,
   getUsers: procedure.query(async () => {
     const users = await prisma.user.findMany({
       select: {

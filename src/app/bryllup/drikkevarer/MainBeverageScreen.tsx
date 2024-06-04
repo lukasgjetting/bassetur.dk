@@ -17,7 +17,7 @@ import { BeverageType } from "@prisma/client";
 const categoryLabels: Record<BeverageType, string> = {
   WINE: "Vin",
   COCKTAIL: "Cocktails",
-  BEER: "Øl",
+  BEER: "Øl & cider",
   SODA: "Sodavand",
   WATER: "Vand",
 };
@@ -25,7 +25,7 @@ const categoryLabels: Record<BeverageType, string> = {
 function MainBeverageScreen() {
   const [userName, setUserName] = useUserName();
 
-  const [cart, { addToCart, removeFromCart, numberOfItemsInCart }] = useCart();
+  const [_cart, { numberOfItemsInCart }] = useCart();
 
   const [isConfirmOrderModalOpen, setIsConfirmOrderModalOpen] = useState(false);
 
@@ -38,7 +38,7 @@ function MainBeverageScreen() {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      <div className="flex gap-4 justify-center w-full flex-wrap pt-6 pb-6 bg-cream">
+      <div className="flex gap-4 px-1 justify-center w-full flex-wrap pt-6 pb-6 bg-cream">
         {Object.keys(categoryLabels).map((category) => (
           <a
             key={category}
@@ -74,17 +74,19 @@ function MainBeverageScreen() {
         );
       })}
       <div className="h-32" />
-      <button
-        className={classNames(
-          "fixed z-20 bottom-8 left-8 right-8 py-4 text-white bg-green-dust text-2xl shadow-xl rounded-full text-center font-bold transition",
-          numberOfItemsInCart === 0
-            ? "pointer-events-none translate-y-24"
-            : "translate-y-0",
-        )}
-        onClick={() => setIsConfirmOrderModalOpen(true)}
-      >
-        Bestil ({numberOfItemsInCart})
-      </button>
+      <div className="fixed z-20 bottom-0 left-0 right-0 pb-8 pt-4 px-8 bg-gradient-to-b from-transparent to-black/25">
+        <button
+          className={classNames(
+            "w-full py-4 text-green-suit bg-green-dust text-2xl shadow-xl rounded-full text-center font-bold transition",
+            numberOfItemsInCart === 0
+              ? "pointer-events-none translate-y-24"
+              : "translate-y-0",
+          )}
+          onClick={() => setIsConfirmOrderModalOpen(true)}
+        >
+          Bestil ({numberOfItemsInCart})
+        </button>
+      </div>
       <ConfirmOrderModal
         isVisible={isConfirmOrderModalOpen}
         onClose={() => setIsConfirmOrderModalOpen(false)}
