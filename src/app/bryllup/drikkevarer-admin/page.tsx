@@ -86,13 +86,7 @@ const DrikkevarerAdminPage = () => {
             );
 
             return (
-              <div
-                key={o.id}
-                className={classNames(
-                  "ml-4 pr-4 rounded-l-lg",
-                  o.id === selectedOrderId && "shadow-lg",
-                )}
-              >
+              <div key={o.id} className={classNames("ml-4 pr-4 rounded-l-lg")}>
                 <button
                   className={classNames(
                     "w-full text-left flex justify-between items-center px-4 py-4 rounded-lg  transition duration-300",

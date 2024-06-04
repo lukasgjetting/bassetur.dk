@@ -1,4 +1,4 @@
-import { Fuzzy_Bubbles, Comfortaa } from "next/font/google";
+import { Fuzzy_Bubbles, Comfortaa, Dancing_Script } from "next/font/google";
 import localFont from "next/font/local";
 
 export const fuzzyBubbles = Fuzzy_Bubbles({
@@ -13,4 +13,9 @@ export const comfortaa = Comfortaa({
   subsets: ["latin"],
 });
 
-export const fonts = { fuzzyBubbles, rosabelia, comfortaa };
+export const dancing = Dancing_Script({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+});
+
+export const fonts = { fuzzyBubbles, rosabelia, comfortaa, dancing };

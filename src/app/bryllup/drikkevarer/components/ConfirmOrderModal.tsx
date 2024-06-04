@@ -71,7 +71,7 @@ const ConfirmOrderModal: React.FC<ConfirmOrderModalProps> = ({
             </button>
           </div>
           <div className="h-8" />
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 max-h-[40vh] overflow-y-auto">
             {cart.items.map((item) => (
               <div
                 key={item.beverage.id}
@@ -86,7 +86,7 @@ const ConfirmOrderModal: React.FC<ConfirmOrderModalProps> = ({
                       fill
                     />
                   </div>
-                  <span>{item.beverage.name}</span>
+                  <div className="flex-1">{item.beverage.name}</div>
                 </div>
                 <div className="flex gap-1 items-center">
                   <button
@@ -112,7 +112,7 @@ const ConfirmOrderModal: React.FC<ConfirmOrderModalProps> = ({
               createOrderMutation.isPending || createOrderMutation.isSuccess
             }
             className={classNames(
-              "text-white p-4 w-full transition text-2xl shadow-xl rounded-full text-center font-bold",
+              "text-green-suit-dark p-4 w-full transition text-2xl shadow-xl rounded-full text-center font-bold",
               createOrderMutation.isPending && "opacity-50",
               createOrderMutation.isSuccess ? "bg-green-600" : "bg-green-dust",
             )}
