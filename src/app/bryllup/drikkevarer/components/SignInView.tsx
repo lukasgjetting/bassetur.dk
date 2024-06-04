@@ -23,13 +23,13 @@ const SignInView: React.FC<SignInViewProps> = ({ onSignIn }) => {
   return (
     <div>
       <div className="px-4 pt-16 pb-6 bg-green-suit">
-        <h2 className="text-sm text-green-dust opacity-60">
-          Velkommen til vores 5-stjernede web-app
+        <h2 className="text-sm text-white opacity-70">
+          Velkommen til vores bryllups-web-app
         </h2>
         <div className="h-3" />
-        <h1 className="text-3xl font-medium text-green-dust">Hvem er du?</h1>
+        <h1 className="text-3xl font-medium text-white">Hvem er du?</h1>
       </div>
-      <div className="flex flex-col gap-2 px-4 pt-4">
+      <div className="flex flex-col gap-2 px-4 pt-4 bg-cream">
         {usersQuery.data?.map((user) => (
           <button
             key={user.name}
@@ -42,6 +42,7 @@ const SignInView: React.FC<SignInViewProps> = ({ onSignIn }) => {
             {user.name}
           </button>
         ))}
+        <div className="h-4" />
       </div>
       <div
         className={classNames(
