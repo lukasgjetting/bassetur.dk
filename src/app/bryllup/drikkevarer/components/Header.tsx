@@ -65,7 +65,7 @@ const Header: React.FC<HeaderProps> = () => {
         leaveFrom="opacity-100"
         leaveTo="opacity-0"
         as="div"
-        className="fixed inset-0 overflow-y-auto bg-green-suit/80 p-4 z-50"
+        className="fixed inset-0 overflow-y-auto bg-green-suit p-4 z-50"
       >
         <div className="flex items-center justify-between">
           <h4 className="text-2xl font-bold">Tidligere bestillinger</h4>
@@ -81,14 +81,16 @@ const Header: React.FC<HeaderProps> = () => {
             [...historyQuery.data].reverse().map((o, index) => (
               <div key={o.id} className="pt-8">
                 <div className="flex items-center justify-between">
-                  <h5 className="text-lg font-bold">Bestilling {index + 1}</h5>
+                  <h5 className="text-lg font-bold text-green-dust">
+                    Bestilling {index + 1}
+                  </h5>
                   <div>
                     {new Date(o.createdAt).getHours()}:
                     {new Date(o.createdAt).getMinutes()}
                   </div>
                 </div>
                 <div className="h-2" />
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-1">
                   {o.orderLines.map((ol) => (
                     <div
                       key={ol.beverage.id}
@@ -100,6 +102,7 @@ const Header: React.FC<HeaderProps> = () => {
                     </div>
                   ))}
                 </div>
+                {index > 0 && <div className="mt-8 -mx-8 h-px bg-white/25" />}
               </div>
             ))
           ) : (

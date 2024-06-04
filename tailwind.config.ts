@@ -16,6 +16,7 @@ const config: Config = {
       colors: {
         bassebrun: "#786456",
         "green-suit": "#39543C",
+        "green-suit-dark": "#2C3F2D",
         "green-dust": "#B7CB9B",
         "purple-lavender": "#F7F4FF",
         cream: "#FFFFF9",

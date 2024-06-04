@@ -13,6 +13,7 @@ export const beverageRouter = router({
       name: b.name,
       imageSourceUrl: b.imageSourceUrl,
       description: b.description,
+      type: b.type,
       ingredients:
         b.ingredients == null || b.ingredients === ""
           ? []
@@ -36,6 +37,13 @@ export const beverageRouter = router({
           },
         },
       });
+
+      if (req.input.beverages.length === 0) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Bare vælg et eller andet :-(",
+        });
+      }
 
       const beveragesById = beverages.reduce(
         (acc, b) => {

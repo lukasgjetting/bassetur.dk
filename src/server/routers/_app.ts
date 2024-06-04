@@ -11,6 +11,7 @@ export const appRouter = router({
         name: true,
         securityQuestion: true,
         securityQuestionAnswerOptions: true,
+        tableNumber: true,
       },
       orderBy: {
         name: "asc",

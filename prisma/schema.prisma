@@ -24,6 +24,7 @@ enum BeverageType {
   WINE
   SODA
   BEER
+  WATER
 }
 
 model Beverage {

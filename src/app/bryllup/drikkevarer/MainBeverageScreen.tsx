@@ -12,25 +12,24 @@ import { inferProcedureOutput } from "@trpc/server";
 import { AppRouter } from "@/server/routers/_app";
 import useUserName from "./useUserName";
 import BeverageItem from "./components/BeverageItem";
+import { BeverageType } from "@prisma/client";
+
+const categoryLabels: Record<BeverageType, string> = {
+  WINE: "Vin",
+  COCKTAIL: "Cocktails",
+  BEER: "Øl",
+  SODA: "Sodavand",
+  WATER: "Vand",
+};
 
 function MainBeverageScreen() {
-  const [userName, setUserName, logOut] = useUserName();
+  const [userName, setUserName] = useUserName();
 
   const [cart, { addToCart, removeFromCart, numberOfItemsInCart }] = useCart();
 
   const [isConfirmOrderModalOpen, setIsConfirmOrderModalOpen] = useState(false);
 
-  const beverageIdsInCart = new Set(cart.items.map((item) => item.beverage.id));
   const beveragesQuery = trpc.beverage.getBeverages.useQuery();
-
-  const beveragesById =
-    beveragesQuery.data?.reduce(
-      (acc, b) => {
-        acc[b.id] = b;
-        return acc;
-      },
-      {} as Record<string, CartBeverage>,
-    ) ?? {};
 
   if (userName === "") {
     return <SignInView onSignIn={(userName) => setUserName(userName)} />;
@@ -39,12 +38,41 @@ function MainBeverageScreen() {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      <div className="flex flex-wrap pb-24">
-        {beveragesQuery.data?.map((b) => (
-          <BeverageItem key={b.id} beverage={b} />
+      <div className="flex gap-4 justify-center w-full flex-wrap pt-6 pb-6 bg-cream">
+        {Object.keys(categoryLabels).map((category) => (
+          <a
+            key={category}
+            className="py-2 px-6 rounded-full bg-purple-200 shadow"
+            href={`#category-${category}`}
+          >
+            {categoryLabels[category as BeverageType]}
+          </a>
         ))}
       </div>
-      <button onClick={() => logOut()}>log ud</button>
+      {Object.keys(categoryLabels).map((category) => {
+        const beverages =
+          beveragesQuery.data?.filter((b) => b.type === category) ?? [];
+
+        if (beverages.length === 0) {
+          return null;
+        }
+
+        return (
+          <div key={category} className="w-full">
+            <h3
+              className="text-2xl font-bold text-center py-4 bg-green-suit-dark text-cream"
+              id={`category-${category}`}
+            >
+              {categoryLabels[category as BeverageType]}
+            </h3>
+            <div className="flex flex-wrap">
+              {beverages.map((b) => (
+                <BeverageItem key={b.id} beverage={b} />
+              ))}
+            </div>
+          </div>
+        );
+      })}
       <button
         className={classNames(
           "fixed z-20 bottom-8 left-8 right-8 py-4 text-white bg-green-dust text-2xl shadow-xl rounded-full text-center font-bold transition",

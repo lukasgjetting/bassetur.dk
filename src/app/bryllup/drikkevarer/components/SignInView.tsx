@@ -11,28 +11,10 @@ type SignInViewProps = {
 };
 
 const SignInView: React.FC<SignInViewProps> = ({ onSignIn }) => {
-  const timeoutIdRef = React.useRef<NodeJS.Timeout | null>(null);
   const [isSecurityModalOpen, setIsSecurityModalOpen] = useState(false);
   const [selectedUserName, setSelectedUserName] = useState<string | null>(null);
 
   const usersQuery = trpc.getUsers.useQuery();
-  const submitSecurityAnswerMutation =
-    trpc.submitUserSecurityQuestion.useMutation({
-      onSuccess: (result, { userName: userName }) => {
-        if (timeoutIdRef.current != null) {
-          clearTimeout(timeoutIdRef.current);
-        }
-
-        timeoutIdRef.current = setTimeout(() => {
-          if (result) {
-            // Wait for animation
-            onSignIn(userName);
-          } else {
-            submitSecurityAnswerMutation.reset();
-          }
-        }, 1500);
-      },
-    });
 
   const selectedUser = usersQuery.data?.find(
     (user) => user.name === selectedUserName,
@@ -92,75 +74,20 @@ const SignInView: React.FC<SignInViewProps> = ({ onSignIn }) => {
           <div className="h-4" />
           {selectedUserName != null && selectedUser != null ? (
             <>
-              <p>Bare lige for at være helt sikker... 🤔</p>
-              <div className="h-4" />
-              <div className="border border-green-dust text-green-suit rounded-lg p-4 text-center">
-                {selectedUser?.securityQuestion}
+              <div className="text-green-suit rounded-lg p-4 text-center">
+                <p>
+                  Du sidder ved <strong>bord {selectedUser.tableNumber}</strong>
+                </p>
               </div>
               <div className="h-4" />
-              <div className="flex flex-col gap-2">
-                {selectedUser?.securityQuestionAnswerOptions.map((option) => {
-                  const isPreviousSubmission =
-                    submitSecurityAnswerMutation.variables
-                      ?.securityQuestionAnswer === option;
-                  const submissionResult = submitSecurityAnswerMutation.data;
-
-                  let resultLabel: string = "";
-
-                  if (isPreviousSubmission && submissionResult != null) {
-                    resultLabel = submissionResult
-                      ? "Rigtigt!"
-                      : submitSecurityAnswerMutation.variables
-                          .securityQuestionAnswer === "Challenger"
-                      ? "you wish"
-                      : "Forkert!";
-                  }
-
-                  return (
-                    <button
-                      key={option}
-                      onClick={() => {
-                        submitSecurityAnswerMutation.mutate({
-                          userName: selectedUserName,
-                          securityQuestionAnswer: option,
-                        });
-                      }}
-                      className={classNames(
-                        "py-3 transition-colors duration-500 relative border border-purple-200 rounded-lg",
-                        isPreviousSubmission &&
-                          submissionResult === true &&
-                          "bg-green-200 text-green-900",
-                        isPreviousSubmission &&
-                          submissionResult === false &&
-                          "bg-red-200 text-red-900",
-                        !isPreviousSubmission &&
-                          "bg-purple-lavender text-bassebrun",
-                      )}
-                    >
-                      <span
-                        className={classNames(
-                          "transition duration-500",
-                          resultLabel === ""
-                            ? "opacity-100 translate-y-0"
-                            : "opacity-0 translate-y-2",
-                        )}
-                      >
-                        {option}
-                      </span>
-                      <div
-                        className={classNames(
-                          "absolute inset-0 flex justify-center items-center transition duration-500",
-                          resultLabel === ""
-                            ? "opacity-0 -translate-y-2"
-                            : "opacity-100 translate-y-0",
-                        )}
-                      >
-                        {resultLabel}
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
+              <button
+                onClick={() => onSignIn(selectedUser.name)}
+                className={classNames(
+                  "py-3 transition-colors duration-500 relative border bg-purple-200 rounded-lg w-full",
+                )}
+              >
+                Okidoki
+              </button>
             </>
           ) : (
             "Mystisk! Prøv at genindlæse siden..."

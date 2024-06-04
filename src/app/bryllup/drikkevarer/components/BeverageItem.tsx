@@ -12,7 +12,7 @@ const BeverageItem: React.FC<BeverageItemProps> = ({ beverage }) => {
   const isInCart = cart.items.some((i) => i.beverage.id === beverage.id);
 
   return (
-    <div className="w-full bg-cream relative px-4 py-6 border-b overflow-hidden">
+    <div className="w-full bg-cream relative px-4 py-6 border-b border-b-green-dust overflow-hidden">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/images/beverage-top-left.png"
