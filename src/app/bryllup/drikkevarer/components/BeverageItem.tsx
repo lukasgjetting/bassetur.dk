@@ -12,7 +12,7 @@ const BeverageItem: React.FC<BeverageItemProps> = ({ beverage }) => {
   const isInCart = cart.items.some((i) => i.beverage.id === beverage.id);
 
   return (
-    <div className="w-full bg-cream relative pr-6 pl-6 py-8 border-b border-b-green-dust overflow-hidden">
+    <div className="w-full bg-cream relative pr-16 pl-6 py-8 border-b border-b-green-dust overflow-hidden">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/images/beverage-top-left.png"
@@ -42,7 +42,7 @@ const BeverageItem: React.FC<BeverageItemProps> = ({ beverage }) => {
         </div>
         <div
           className={classNames(
-            "absolute right-0 flex justify-center items-center",
+            "absolute -right-10 flex justify-center items-center",
             beverage.ingredients.length > 0 ? "bottom-0" : "top-0 bottom-0 ",
           )}
         >

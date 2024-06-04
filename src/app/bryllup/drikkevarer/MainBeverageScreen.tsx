@@ -45,7 +45,7 @@ function MainBeverageScreen() {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      <div className="top-0 sticky z-20 border-b border-b-green-suit flex gap-4 px-1 justify-center w-full flex-wrap pt-6 pb-6 bg-cream">
+      <div className="top-0 sticky z-20 border-b border-b-green-dust flex gap-4 px-1 justify-center w-full flex-wrap pt-6 pb-6 bg-cream">
         {Object.keys(categoryLabels).map((category) => (
           <a
             key={category}
