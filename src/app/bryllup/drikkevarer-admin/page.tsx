@@ -248,7 +248,7 @@ const DrikkevarerAdminPage = () => {
               </table>
               <div className="h-4" />
             </div>
-            <div className="h-4" />
+            <div className="h-12" />
             <div className="flex justify-center">
               {selectedOrder.status === "PENDING" && (
                 <button
@@ -259,7 +259,7 @@ const DrikkevarerAdminPage = () => {
                   }
                   disabled={markOrderCompleteMutation.isPending}
                   className={classNames(
-                    "px-4 py-2 text-xl text-white bg-green-suit rounded-full",
+                    "px-8 py-4 text-2xl text-white bg-green-suit rounded-full",
                     markOrderCompleteMutation.isPending ? "opacity-50" : "",
                   )}
                 >
