@@ -9,7 +9,7 @@ export const fuzzyBubbles = Fuzzy_Bubbles({
 export const rosabelia = localFont({ src: "../../public/fonts/rosabelia.ttf" });
 
 export const comfortaa = Comfortaa({
-  weight: ["300", "400", "500"],
+  weight: ["300", "400", "500", "600"],
   subsets: ["latin"],
 });
 

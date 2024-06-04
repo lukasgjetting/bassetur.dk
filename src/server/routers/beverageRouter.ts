@@ -169,4 +169,29 @@ export const beverageRouter = router({
         },
       });
     }),
+  markBeverageSoldOut: procedure
+    .input(z.object({ beverageId: z.string() }))
+    .mutation(async ({ input }) => {
+      const beverage = await prisma.beverage.findUnique({
+        where: {
+          id: input.beverageId,
+        },
+      });
+
+      if (beverage == null) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Beverage not found",
+        });
+      }
+
+      await prisma.beverage.update({
+        where: {
+          id: beverage.id,
+        },
+        data: {
+          quantity: 0,
+        },
+      });
+    }),
 });
