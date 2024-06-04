@@ -73,6 +73,7 @@ function MainBeverageScreen() {
           </div>
         );
       })}
+      <div className="h-32" />
       <button
         className={classNames(
           "fixed z-20 bottom-8 left-8 right-8 py-4 text-white bg-green-dust text-2xl shadow-xl rounded-full text-center font-bold transition",

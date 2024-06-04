@@ -78,12 +78,14 @@ const ConfirmOrderModal: React.FC<ConfirmOrderModalProps> = ({
                 className="flex items-center justify-between"
               >
                 <div className="flex items-center gap-4">
-                  <Image
-                    alt=""
-                    src={item.beverage.imageSourceUrl}
-                    width={50}
-                    height={50}
-                  />
+                  <div className="w-16 h-16 relative">
+                    <Image
+                      objectFit="contain"
+                      alt=""
+                      src={item.beverage.imageSourceUrl}
+                      fill
+                    />
+                  </div>
                   <span>{item.beverage.name}</span>
                 </div>
                 <div className="flex gap-1 items-center">
