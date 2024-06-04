@@ -82,7 +82,12 @@ const SignInView: React.FC<SignInViewProps> = ({ onSignIn }) => {
         <div className="p-6 rounded-lg bg-white text-green-suit relative">
           <div className="flex justify-between items-center">
             <span className="text-xl">Hej {selectedUser?.name}!</span>
-            <button onClick={() => setIsSecurityModalOpen(false)}>luk</button>
+            <button
+              className="text-lg p-4 -m-4"
+              onClick={() => setIsSecurityModalOpen(false)}
+            >
+              x
+            </button>
           </div>
           <div className="h-4" />
           {selectedUserName != null && selectedUser != null ? (
