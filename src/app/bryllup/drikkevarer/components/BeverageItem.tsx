@@ -26,14 +26,14 @@ const BeverageItem: React.FC<BeverageItemProps> = ({ beverage }) => {
         alt=""
       />
       <div className="relative z-10">
-        <div style={fonts.dancing.style} className="text-2xl text-bassebrun">
+        <div style={fonts.dancing.style} className="text-4xl text-bassebrun">
           {beverage.name}
         </div>
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col">
           {beverage.ingredients.map((ingredient) => (
             <div
               key={ingredient}
-              className="text-sm flex items-center gap-2 font-light text-slate-800"
+              className="mt-1 text-sm flex items-center gap-2 font-light text-slate-800"
             >
               <span className="text-[#D3AD29] text-xs">—</span>
               {ingredient}
