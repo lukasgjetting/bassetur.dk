@@ -56,4 +56,19 @@ export const iceCreamRouter = router({
         },
       });
     }),
+  getAllSelections: procedure.query(async () => {
+    const users = await prisma.user.findMany({
+      select: {
+        name: true,
+        iceCreamSelection: true,
+        tableNumber: true,
+      },
+    });
+
+    return users.map((user) => ({
+      name: user.name,
+      iceCreamSelection: user.iceCreamSelection.split(";"),
+      tableNumber: user.tableNumber,
+    }));
+  }),
 });
