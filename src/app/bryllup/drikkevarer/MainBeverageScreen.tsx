@@ -69,6 +69,9 @@ function MainBeverageScreen() {
             <h3
               className="text-2xl font-bold text-center py-4 bg-green-suit-dark text-cream"
               id={`category-${category}`}
+              style={{
+                scrollMarginTop: 145,
+              }}
             >
               {categoryLabels[category as BeverageType]}
             </h3>
